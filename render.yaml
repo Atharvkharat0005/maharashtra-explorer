@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: maharashtra-explorer
+    runtime: node
+    plan: free
+    region: virginia
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
