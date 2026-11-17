@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>All Destinations – Maharashtra Explorer</title>
+  <meta name="description" content="Browse and filter all top tourist destinations in Maharashtra across forts, beaches, hill stations, temples, and caves." />
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html" id="nav-brand-logo">
+        <span class="brand-badge"><i class="fa-solid fa-mountain-sun"></i></span>
+        <span>Maharashtra Explorer</span>
+      </a>
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarMain">
+        <ul class="navbar-nav ms-auto me-3 mb-2 mb-lg-0 align-items-lg-center">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html" id="nav-home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="destinations.html" id="nav-destinations">Destinations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="plan-trip.html" id="nav-plan-trip">Plan My Trip</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="travel-agents.html" id="nav-agents">Travel Agents</a>
+          </li>
+        </ul>
+        
+        <div class="d-flex align-items-center gap-2">
+          <a href="login.html" class="btn navbar-btn-outline" id="nav-login-btn">
+            <i class="fa-regular fa-user me-1"></i> Login
+          </a>
+          <a href="plan-trip.html" class="btn navbar-btn-primary" id="nav-cta-btn">
+            <i class="fa-solid fa-wand-magic-sparkles me-1"></i> AI Planner
+          </a>
+          <!-- Language Selector at the very right of the header -->
+          <div class="dropdown ms-1">
+            <button class="btn navbar-btn-outline dropdown-toggle d-flex align-items-center gap-1" type="button" id="headerLanguageDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 6px 12px; font-size: 0.82rem;">
+              <i class="fa-solid fa-globe text-warning me-1"></i>
+              <span id="currentLangDisplay">English</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end shadow" aria-labelledby="headerLanguageDropdown" style="background: #18130f; border: 1px solid rgba(255,255,255,0.15); border-radius: 12px;">
+              <li><button class="dropdown-item py-2 text-white d-flex align-items-center justify-content-between" type="button" onclick="setSiteLanguage('en')"><span>English</span> <span class="badge bg-secondary ms-2">EN</span></button></li>
+              <li><button class="dropdown-item py-2 text-white d-flex align-items-center justify-content-between" type="button" onclick="setSiteLanguage('mr')"><span>मराठी</span> <span class="badge bg-warning text-dark ms-2">MR</span></button></li>
+              <li><button class="dropdown-item py-2 text-white d-flex align-items-center justify-content-between" type="button" onclick="setSiteLanguage('hi')"><span>हिन्दी</span> <span class="badge bg-warning text-dark ms-2">HI</span></button></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-2 small text-light opacity-75">
+          <li class="breadcrumb-item"><a href="index.html" class="text-white text-decoration-none">Home</a></li>
+          <li class="breadcrumb-item active text-warning" aria-current="page">Destinations</li>
+        </ol>
+      </nav>
+      <h1>Explore Destinations</h1>
+      <p>Discover pristine beaches, misty hill stations, historical citadels, and wildlife reserves across Maharashtra.</p>
+    </div>
+  </header>
+
+  <!-- Main Content & Filters -->
+  <main class="container mb-5">
+    
+    <!-- Top Search & Sort Bar -->
+    <div class="card p-3 mb-4 border shadow-sm">
+      <div class="row g-3 align-items-center">
+        <div class="col-lg-7 col-md-6">
+          <div class="input-group">
+            <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+            <input type="text" id="search-input" class="form-control border-start-0 ps-0" placeholder="Search by destination name, fort, beach, city, or keyword..." />
+            <button class="btn btn-primary-custom" id="search-btn" type="button">Search</button>
+          </div>
+        </div>
+        
+        <div class="col-lg-5 col-md-6 d-flex align-items-center justify-content-md-end gap-2">
+          <label for="sort-select" class="text-muted small fw-bold text-nowrap">Sort By:</label>
+          <select id="sort-select" class="form-select form-select-sm w-auto">
+            <option value="recommended">Recommended</option>
+            <option value="budget-low">Budget: Low to High</option>
+            <option value="budget-high">Budget: High to Low</option>
+            <option value="duration">Duration: Short to Long</option>
+            <option value="name">Name (A-Z)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Filter Sidebar -->
+      <aside class="col-lg-3 col-md-4 mb-4">
+        <div class="filter-card" id="filter-sidebar">
+          <div class="filter-title">
+            <span><i class="fa-solid fa-sliders me-1"></i> Filter By</span>
+            <button class="btn btn-sm btn-link text-danger p-0 text-decoration-none" id="reset-filters-btn">Reset All</button>
+          </div>
+
+          <!-- Category Filter -->
+          <div class="filter-group">
+            <label class="filter-label">Category</label>
+            <select id="filter-category" class="form-select form-select-sm">
+              <option value="all">All Categories</option>
+              <option value="Forts">🏰 Forts</option>
+              <option value="Beaches">🏖 Beaches</option>
+              <option value="Hill Stations">⛰ Hill Stations</option>
+              <option value="Waterfalls">💧 Waterfalls</option>
+              <option value="Temples">🛕 Temples</option>
+              <option value="Wildlife">🐅 Wildlife</option>
+              <option value="Heritage Places">🏛 Heritage Places</option>
+              <option value="Caves">🕳 Caves</option>
+            </select>
+          </div>
+
+          <!-- Region Filter -->
+          <div class="filter-group">
+            <label class="filter-label">Region / Circuit</label>
+            <select id="filter-region" class="form-select form-select-sm">
+              <option value="all">All Maharashtra Regions</option>
+              <option value="Konkan">Konkan & Coastal</option>
+              <option value="Western">Western Maharashtra & Sahyadri</option>
+              <option value="Marathwada">Marathwada (Aurangabad / Caves)</option>
+              <option value="Vidarbha">Vidarbha (Nagpur / Tigers)</option>
+              <option value="Northern">Northern Maharashtra / Khandesh</option>
+            </select>
+          </div>
+
+          <!-- Max Budget Slider -->
+          <div class="filter-group">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <label class="filter-label mb-0">Max Budget (Per Person)</label>
+              <span id="budget-filter-label" class="fw-bold text-primary small">₹10,000</span>
+            </div>
+            <input type="range" class="form-range" id="filter-budget" min="1000" max="12000" step="500" value="12000" />
+            <div class="d-flex justify-content-between text-muted" style="font-size: 0.75rem;">
+              <span>₹1k</span>
+              <span>₹5k</span>
+              <span>₹12k+</span>
+            </div>
+          </div>
+
+          <!-- Travel Duration -->
+          <div class="filter-group">
+            <label class="filter-label">Tour Duration</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="durationRadio" id="dur-all" value="all" checked />
+              <label class="form-check-label small" for="dur-all">Any Duration</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="durationRadio" id="dur-1" value="1" />
+              <label class="form-check-label small" for="dur-1">1 Day (Weekend / Day Trip)</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="durationRadio" id="dur-2" value="2" />
+              <label class="form-check-label small" for="dur-2">2 Days (Overnight Getaway)</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="durationRadio" id="dur-3" value="3" />
+              <label class="form-check-label small" for="dur-3">3+ Days (Full Holiday Tour)</label>
+            </div>
+          </div>
+
+          <!-- Help CTA in Sidebar -->
+          <div class="p-3 bg-light rounded-3 text-center border mt-4">
+            <div class="fs-4 text-primary mb-1"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+            <h6 class="fw-bold mb-1">Want a Custom Plan?</h6>
+            <p class="small text-muted mb-2">Let our intelligent assistant generate a tailored itinerary.</p>
+            <a href="plan-trip.html" class="btn btn-sm btn-primary-custom w-100">Plan My Trip</a>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Destination Cards List -->
+      <section class="col-lg-9 col-md-8">
+        
+        <!-- Status / Active Filter Bar -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div id="results-count-text" class="text-muted small fw-bold">
+            Showing all destinations
+          </div>
+          <div id="active-category-badge"></div>
+        </div>
+
+        <!-- Dynamic Grid of Cards -->
+        <div class="row" id="destinations-grid">
+          <!-- Populated by JavaScript -->
+        </div>
+
+        <!-- Empty State Container (Hidden by default) -->
+        <div id="empty-state" class="text-center py-5 bg-white rounded border d-none">
+          <div class="display-4 text-muted mb-3"><i class="fa-solid fa-compass-slash"></i></div>
+          <h4 class="fw-bold text-dark">No Destinations Found</h4>
+          <p class="text-muted max-w-500 mx-auto mb-3">
+            We couldn't find any destinations matching your current search and filter combination.
+          </p>
+          <button class="btn btn-primary-custom" id="empty-reset-btn">Reset All Filters</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer-custom">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <span class="brand-badge"><i class="fa-solid fa-mountain-sun"></i></span>
+            <span class="h5 mb-0 text-white fw-bold">Maharashtra Explorer</span>
+          </div>
+          <p class="small text-muted mb-3">
+            Your intelligent personal travel companion for exploring the culture, natural wonders, royal forts, and heritage of Maharashtra.
+          </p>
+        </div>
+
+        <div class="col-lg-2 col-md-6 col-6">
+          <h4 class="footer-title">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="destinations.html">All Destinations</a></li>
+            <li><a href="plan-trip.html">AI Trip Planner</a></li>
+            <li><a href="travel-agents.html">Travel Agents</a></li>
+            <li><a href="login.html">Member Login</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-6">
+          <h4 class="footer-title">Categories</h4>
+          <ul class="footer-links">
+            <li><a href="destinations.html?category=Forts">Historical Forts</a></li>
+            <li><a href="destinations.html?category=Beaches">Konkan Beaches</a></li>
+            <li><a href="destinations.html?category=Hill%20Stations">Hill Stations</a></li>
+            <li><a href="destinations.html?category=Caves">Ancient Caves</a></li>
+            <li><a href="destinations.html?category=Wildlife">Tiger Reserves</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <h4 class="footer-title">Travel Updates</h4>
+          <p class="small text-muted mb-2">Subscribe for travel recommendations.</p>
+          <form id="newsletter-form" class="d-flex gap-2">
+            <input type="email" id="newsletter-email" class="form-control form-control-sm" placeholder="Your email address" required />
+            <button type="submit" class="btn btn-sm btn-primary-custom">Join</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="mb-0">© 2026 Maharashtra Explorer. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Application JS Files -->
+  <script src="js/api.js"></script>
+  <script src="js/destinations.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- Filter & Rendering Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const searchInput = document.getElementById("search-input");
+      const searchBtn = document.getElementById("search-btn");
+      const categorySelect = document.getElementById("filter-category");
+      const regionSelect = document.getElementById("filter-region");
+      const budgetSlider = document.getElementById("filter-budget");
+      const budgetLabel = document.getElementById("budget-filter-label");
+      const sortSelect = document.getElementById("sort-select");
+      const resetBtn = document.getElementById("reset-filters-btn");
+      const emptyResetBtn = document.getElementById("empty-reset-btn");
+      const grid = document.getElementById("destinations-grid");
+      const emptyState = document.getElementById("empty-state");
+      const resultsCountText = document.getElementById("results-count-text");
+
+      // Check URL query parameters (e.g., ?category=Forts or ?search=Raigad)
+      const urlParams = new URLSearchParams(window.location.search);
+      const initialCategory = urlParams.get("category");
+      const initialSearch = urlParams.get("search");
+
+      if (initialCategory && categorySelect) {
+        categorySelect.value = initialCategory;
+      }
+      if (initialSearch && searchInput) {
+        searchInput.value = initialSearch;
+      }
+
+      // Filter and render logic
+      function applyFilters() {
+        const query = searchInput.value.trim().toLowerCase();
+        const selectedCategory = categorySelect.value;
+        const selectedRegion = regionSelect.value;
+        const maxBudget = Number(budgetSlider.value);
+        const selectedDuration = document.querySelector('input[name="durationRadio"]:checked').value;
+        const sortBy = sortSelect.value;
+
+        // Update budget label
+        budgetLabel.textContent = `₹${maxBudget.toLocaleString()}`;
+
+        let filtered = window.DESTINATIONS_DATA.filter(dest => {
+          // 1. Search Query
+          if (query) {
+            const matchName = dest.name.toLowerCase().includes(query);
+            const matchLoc = dest.location.toLowerCase().includes(query);
+            const matchDesc = dest.description.toLowerCase().includes(query);
+            const matchCat = dest.category.toLowerCase().includes(query);
+            const matchTags = dest.tags && dest.tags.some(t => t.toLowerCase().includes(query));
+            if (!matchName && !matchLoc && !matchDesc && !matchCat && !matchTags) return false;
+          }
+
+          // 2. Category
+          if (selectedCategory !== "all" && dest.category.toLowerCase() !== selectedCategory.toLowerCase()) {
+            return false;
+          }
+
+          // 3. Region
+          if (selectedRegion !== "all") {
+            if (!dest.region.toLowerCase().includes(selectedRegion.toLowerCase())) return false;
+          }
+
+          // 4. Budget
+          if (dest.budget > maxBudget) {
+            return false;
+          }
+
+          // 5. Duration
+          if (selectedDuration !== "all") {
+            const durNum = Number(selectedDuration);
+            if (durNum === 3) {
+              if (dest.duration < 3) return false;
+            } else {
+              if (dest.duration !== durNum) return false;
+            }
+          }
+
+          return true;
+        });
+
+        // Sorting
+        if (sortBy === "budget-low") {
+          filtered.sort((a, b) => a.budget - b.budget);
+        } else if (sortBy === "budget-high") {
+          filtered.sort((a, b) => b.budget - a.budget);
+        } else if (sortBy === "duration") {
+          filtered.sort((a, b) => a.duration - b.duration);
+        } else if (sortBy === "name") {
+          filtered.sort((a, b) => a.name.localeCompare(b.name));
+        }
+
+        // Render
+        if (filtered.length === 0) {
+          grid.innerHTML = "";
+          emptyState.classList.remove("d-none");
+          resultsCountText.textContent = `Found 0 destinations`;
+        } else {
+          emptyState.classList.add("d-none");
+          grid.innerHTML = filtered.map(d => createDestinationCardHTML(d)).join("");
+          resultsCountText.textContent = `Showing ${filtered.length} destination${filtered.length > 1 ? 's' : ''}`;
+        }
+      }
+
+      function resetFilters() {
+        searchInput.value = "";
+        categorySelect.value = "all";
+        regionSelect.value = "all";
+        budgetSlider.value = 12000;
+        document.getElementById("dur-all").checked = true;
+        sortSelect.value = "recommended";
+        applyFilters();
+      }
+
+      // Event Listeners
+      searchInput.addEventListener("input", applyFilters);
+      searchBtn.addEventListener("click", applyFilters);
+      categorySelect.addEventListener("change", applyFilters);
+      regionSelect.addEventListener("change", applyFilters);
+      budgetSlider.addEventListener("input", applyFilters);
+      sortSelect.addEventListener("change", applyFilters);
+      resetBtn.addEventListener("click", resetFilters);
+      emptyResetBtn.addEventListener("click", resetFilters);
+
+      document.querySelectorAll('input[name="durationRadio"]').forEach(radio => {
+        radio.addEventListener("change", applyFilters);
+      });
+
+      // Initial run
+      applyFilters();
+    });
+  </script>
+</body>
+</html>

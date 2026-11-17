@@ -1,0 +1,1126 @@
+# MASTER DEVELOPMENT PROMPT — MAHARASHTRA EXPLORER
+## MAHATRIP AI — Complete AI-Powered Maharashtra Travel Planning Ecosystem
+
+Act as a principal software architect, senior full-stack developer, AI engineer, travel technology specialist, geospatial engineer, database architect, UI/UX designer, and security engineer.
+
+Your task is to upgrade my EXISTING Maharashtra Explorer application into a complete, intelligent, AI-powered Maharashtra tourism and end-to-end travel planning platform.
+
+IMPORTANT: My existing frontend is already designed and implemented. Do not create a new application from scratch. Inspect the existing project, understand its components, routes, design system, API integrations, database structure, and existing features. Preserve all working functionality and extend it.
+
+The goal is to make Maharashtra Explorer a real, working travel ecosystem, not just a UI prototype or static travel website.
+
+# 1. PROJECT IDENTITY
+
+Project name: Maharashtra Explorer
+
+AI travel assistant: MAHATRIP AI
+
+Tagline: Discover Maharashtra. Plan Smarter. Travel Better.
+
+Main objective:
+
+Build an intelligent system that can plan an entire trip from the first user input to the completion of the journey.
+
+The system must:
+- Understand the user's travel requirements.
+- Discover suitable destinations across Maharashtra.
+- Recommend famous and lesser-known tourist attractions.
+- Generate personalized multi-day itineraries.
+- Calculate the complete group budget.
+- Recommend hotels and accommodation.
+- Recommend transport options.
+- Recommend restaurants and activities.
+- Provide real maps, routes, distances, and estimated travel times.
+- Support bookings or legitimate booking redirections.
+- Provide safety information and travel alerts.
+- Allow users to edit, regenerate, save, and manage trips.
+- Act as an intelligent travel assistant throughout the journey.
+
+# 2. EXISTING TECHNOLOGY STACK — PRESERVE IT
+
+My existing local development architecture is:
+
+Frontend:
+- React
+- Vite
+- TypeScript/JavaScript according to the existing project
+- Existing UI and component architecture
+
+Backend:
+- Java
+- Spring Boot 4.1.0
+- REST APIs
+- Spring Data JPA
+- Hibernate
+
+Database:
+- MySQL 8
+- Database name: maharashtra_explorer
+
+AI:
+- Google Gemini API
+- MAHATRIP AI
+
+Development configuration:
+- Frontend: http://localhost:3000
+- Backend: http://localhost:8081
+- API prefix: /api
+- Vite proxy target: http://localhost:8081
+
+CRITICAL ARCHITECTURE RULES:
+
+1. Do not replace my existing React frontend.
+2. Do not replace Spring Boot with a newly invented backend.
+3. Do not replace MySQL with Firebase, Firestore, or another database.
+4. Do not create a second competing database.
+5. Do not move the frontend into Spring Boot static resources.
+6. Do not change frontend port 3000 or backend port 8081.
+7. Do not remove existing controllers, services, repositories, entities, authentication, or APIs.
+8. Do not drop or recreate the existing database.
+9. Do not delete the existing 142 destinations or other existing records.
+10. Extend existing modules and reuse existing services wherever possible.
+
+If the project is being edited inside Google AI Studio, first inspect the actual available project files.
+
+Google AI Studio may use its own Node.js server-side runtime. Do not confuse that runtime with my existing Spring Boot backend. If a server-side adapter is needed, use it only as a secure integration layer. Spring Boot and MySQL remain the main application backend and source of truth.
+
+Use a configurable API base URL:
+- Local development: http://localhost:8081
+- Production: configured HTTPS backend URL
+
+Never assume that localhost inside a remotely hosted server refers to my personal computer.
+
+# 3. THE MAIN FEATURE — MAHATRIP AI END-TO-END TRAVEL AGENT
+
+This is the most important feature.
+
+Create an intelligent AI travel planner that behaves like a professional human travel agent.
+
+The user should not have to manually search for every component of a trip.
+
+The user enters travel requirements, and MAHATRIP AI generates a complete travel proposal.
+
+## User input
+
+Collect:
+
+- Starting location.
+- Destination preference or permission to recommend destinations.
+- Travel start date.
+- Travel end date or number of days.
+- Total group budget.
+- Number of adults.
+- Number of children.
+- Number of senior citizens, if applicable.
+- Number of rooms.
+- Preferred transport.
+- Travel interests.
+- Accommodation preferences.
+- Food preferences.
+- Adventure preferences.
+- Accessibility requirements.
+- Travel style: budget, standard, premium, or luxury.
+
+Interests can include:
+- Forts and history.
+- Beaches.
+- Mountains and hill stations.
+- Waterfalls.
+- Trekking.
+- Wildlife.
+- Nature.
+- Temples.
+- Spiritual tourism.
+- Caves.
+- Lakes and dams.
+- Photography.
+- Adventure activities.
+- Culture and heritage.
+- Food tourism.
+- Village tourism.
+- Offbeat destinations.
+- Family-friendly tourism.
+
+## AI planning workflow
+
+Implement this complete flow:
+
+STEP 1 — Understand requirements.
+
+Analyze the user's budget, group size, starting location, available days, interests, dates, and preferences.
+
+STEP 2 — Destination discovery.
+
+Find suitable destinations from the Maharashtra destination database.
+
+Rank them using:
+- Interest matching.
+- Distance from starting location.
+- Budget compatibility.
+- Available trip duration.
+- Season suitability.
+- Weather conditions.
+- Accessibility.
+- Travel time.
+- Destination popularity.
+- User preferences.
+
+STEP 3 — Destination recommendations.
+
+Recommend the best destinations with:
+- Real photographs.
+- Location and district.
+- Short description.
+- Why the destination is recommended.
+- Estimated distance.
+- Recommended visit duration.
+- Expected expenses.
+- Suitable season.
+- Nearby attractions.
+
+STEP 4 — Generate itinerary.
+
+Generate a practical day-by-day itinerary.
+
+Each day must include:
+- Morning activities.
+- Afternoon activities.
+- Evening activities.
+- Places to visit.
+- Travel distances.
+- Estimated travel time.
+- Meal suggestions.
+- Hotel accommodation.
+- Activity suggestions.
+- Estimated cost.
+- Safety notes.
+
+Avoid impossible schedules and unnecessary backtracking.
+
+STEP 5 — Accommodation recommendations.
+
+Find suitable hotels, resorts, homestays, and guesthouses.
+
+Show:
+- Actual property name.
+- Real property images.
+- Location.
+- Price range.
+- Available room information when verifiable.
+- Amenities.
+- Guest ratings when sourced.
+- Booking link.
+
+Do not fabricate live availability, prices, or reviews.
+
+STEP 6 — Transport planning.
+
+Recommend:
+- Train.
+- Bus.
+- Car.
+- Taxi.
+- Self-drive.
+- Local transport.
+- Walking where appropriate.
+
+Show:
+- Estimated distance.
+- Estimated duration.
+- Approximate cost.
+- Starting point.
+- Destination.
+- Booking source where available.
+
+Do not represent road routes as train or bus routes.
+
+STEP 7 — Activities and restaurants.
+
+Recommend activities and food options based on the itinerary.
+
+Include authentic location information, expected cost, timing, and booking information where available.
+
+STEP 8 — Complete budget calculation.
+
+Show the entire trip cost and per-person cost.
+
+STEP 9 — Final confirmation.
+
+Allow users to:
+- Accept the proposed trip.
+- Edit destinations.
+- Change hotels.
+- Change transport.
+- Add or remove activities.
+- Regenerate individual days.
+- Regenerate the complete itinerary.
+- Save the final trip.
+- Continue to legitimate booking services.
+
+STEP 10 — During-trip assistance.
+
+MAHATRIP AI should remain available throughout the trip.
+
+The user can ask:
+- What should I visit next?
+- Find restaurants nearby.
+- Find the nearest hospital.
+- Is there a safer route?
+- Suggest an alternative because it is raining.
+- Replace this destination.
+- Find a hotel near my current location.
+- Modify tomorrow's plan.
+- Calculate the additional expense.
+
+Implement actual functionality for these actions.
+
+# 4. GROUP BUDGET ENGINE — VERY IMPORTANT
+
+The entered budget MUST represent the TOTAL BUDGET FOR THE ENTIRE GROUP, not the budget per person.
+
+For example:
+
+Group size: 4
+Total budget: ₹20,000
+
+The application must plan the complete trip within ₹20,000 wherever feasible.
+
+Budget categories:
+
+1. Transportation.
+2. Accommodation.
+3. Food and beverages.
+4. Entry fees.
+5. Activities.
+6. Local transportation.
+7. Parking and tolls.
+8. Miscellaneous expenses.
+9. Emergency reserve.
+
+Calculations:
+
+Total trip cost = Sum of all expense categories.
+
+Per-person cost = Total trip cost / Group size.
+
+Remaining budget = Group budget - Estimated trip cost.
+
+Display:
+- Total group budget.
+- Estimated group expenditure.
+- Cost per person.
+- Cost per day.
+- Cost breakdown.
+- Remaining balance.
+- Emergency reserve.
+- Budget warning if exceeded.
+
+Use shared expenses correctly. Do not multiply shared taxi or hotel expenses by the number of people unnecessarily.
+
+If the budget is insufficient, propose alternatives instead of silently exceeding it.
+
+Show estimates separately from confirmed booking prices.
+
+# 5. MAHARASHTRA — ALL 36 DISTRICTS
+
+Build a comprehensive Maharashtra tourism database.
+
+Include all 36 districts:
+
+Konkan Division:
+1. Mumbai City
+2. Mumbai Suburban
+3. Thane
+4. Palghar
+5. Raigad
+6. Ratnagiri
+7. Sindhudurg
+
+Pune Division:
+8. Pune
+9. Satara
+10. Sangli
+11. Kolhapur
+12. Solapur
+
+Nashik Division:
+13. Nashik
+14. Dhule
+15. Nandurbar
+16. Jalgaon
+17. Ahilyanagar
+
+Chhatrapati Sambhajinagar Division:
+18. Chhatrapati Sambhajinagar
+19. Jalna
+20. Beed
+21. Dharashiv
+22. Latur
+23. Nanded
+24. Parbhani
+25. Hingoli
+
+Amravati Division:
+26. Amravati
+27. Akola
+28. Washim
+29. Buldhana
+30. Yavatmal
+
+Nagpur Division:
+31. Wardha
+32. Nagpur
+33. Bhandara
+34. Gondia
+35. Chandrapur
+36. Gadchiroli
+
+Use current official district names and preserve historical names as searchable aliases.
+
+## Geographic hierarchy
+
+Implement:
+
+Maharashtra
+→ Division
+→ District
+→ Taluka
+→ City / Town / Village
+→ Locality
+→ Tourist attraction
+
+Add cascading selection wherever appropriate.
+
+Users must be able to explore tourism information district by district.
+
+## District tourism catalogue
+
+For every district, collect and organize:
+
+- Famous tourist attractions.
+- Historical forts.
+- Beaches.
+- Hill stations.
+- Waterfalls.
+- Caves.
+- Temples.
+- Religious places.
+- Wildlife sanctuaries.
+- National parks.
+- Lakes.
+- Dams.
+- Trekking destinations.
+- Adventure destinations.
+- Historical monuments.
+- Museums.
+- Heritage locations.
+- Cultural attractions.
+- Local food attractions.
+- Village tourism.
+- Hidden gems.
+- Offbeat destinations.
+- Family-friendly destinations.
+
+Each attraction should contain:
+
+- Name.
+- District.
+- Taluka, if verified.
+- Category.
+- Latitude and longitude.
+- Description.
+- Real images.
+- Entry fee, if verified.
+- Opening hours, if verified.
+- Recommended duration.
+- Best visiting season.
+- Accessibility information.
+- Nearby places.
+- Safety information.
+- Source and verification status.
+
+Do not limit the database to a few famous tourist destinations.
+
+The goal is to build a continuously expandable Maharashtra tourism knowledge base.
+
+# 6. HIDDEN GEMS AND OFFBEAT MAHARASHTRA
+
+Create a separate, prominent section named:
+
+"Hidden Gems of Maharashtra"
+
+This should help tourists discover lesser-known places, not only famous destinations.
+
+Examples to research and validate include:
+
+- Sandhan Valley.
+- Harishchandragad.
+- Kalsubai.
+- Bhimashankar.
+- Thoseghar Waterfalls.
+- Kaas Plateau.
+- Bhandardara.
+- Kumbhe Waterfall.
+- Devkund.
+- Tamhini Ghat.
+- Amboli.
+- Naneghat.
+- Gorakhgad.
+- Rajmachi.
+- Prabalgad.
+- Anjaneri.
+- Dandeli-like forest and river experiences within Maharashtra, only where appropriate.
+- Lonar Crater Lake.
+- Chikhaldara.
+- Melghat.
+- Tadoba buffer experiences.
+- Navegaon.
+- Pench Maharashtra region.
+- Tipeshwar Wildlife Sanctuary.
+- Wari and pilgrimage routes.
+- Konkan coastal villages.
+- Lesser-known heritage sites in Marathwada and Vidarbha.
+
+These are research examples, not a claim that every place is a hidden gem or suitable for every visitor.
+
+For every recommendation:
+- Verify the actual location.
+- Verify the district.
+- Verify accessibility.
+- Verify whether public visits are permitted.
+- Verify seasonal restrictions.
+- Include safety requirements.
+- Identify environmentally sensitive locations.
+- Avoid encouraging trespassing or unsafe access.
+
+Build filters:
+- Hidden waterfalls.
+- Secret viewpoints.
+- Offbeat forts.
+- Unexplored beaches.
+- Village experiences.
+- Lesser-known temples.
+- Nature trails.
+- Weekend escapes.
+- Photography locations.
+
+# 7. AUTHENTIC REAL DESTINATION PHOTOGRAPHS
+
+This is a high-priority feature.
+
+Every tourist destination, fort, waterfall, beach, hill station, wildlife location, cave, temple, and hidden gem should have genuine photographs of the actual location wherever reliable images are available.
+
+The website must feel like a real Maharashtra travel discovery platform.
+
+Image requirements:
+
+1. Prefer authentic photographs of the exact destination.
+2. Use Wikimedia Commons, official Maharashtra Tourism resources, verified government sources, and other legitimately licensed image sources.
+3. Store image source, creator, attribution, license, and original URL where available.
+4. Use multiple images per destination when available.
+5. Use destination-specific gallery pages.
+6. Support image galleries, thumbnails, and full-size views.
+7. Use lazy loading and optimized image sizes.
+8. Include useful alt text.
+9. Provide graceful fallbacks when an image cannot load.
+10. Cache or locally store images only when licensing and terms permit.
+
+STRICT RULE:
+
+Never display a generic stock photograph as though it is the actual destination.
+
+Never present an AI-generated image as an authentic photograph.
+
+If an authentic image cannot be verified:
+- Display a clear placeholder.
+- Mark the image as unavailable.
+- Do not misrepresent another location.
+
+AI-generated illustrations can be offered separately as illustrations, never as real destination photographs.
+
+Create a rich visual experience with:
+- Destination hero images.
+- Real attraction galleries.
+- District image collections.
+- Hidden gem image cards.
+- Full destination detail pages.
+- Image-led trip itinerary cards.
+
+# 8. GOOGLE GEMINI — MAHATRIP AI INTELLIGENCE
+
+Integrate Gemini as the intelligence engine.
+
+Use the supported current Gemini API/model configuration after checking official model availability.
+
+Do not hardcode a model name that may no longer be available.
+
+All Gemini calls must happen securely on the backend.
+
+Never expose GEMINI_API_KEY in:
+- React source.
+- Browser JavaScript.
+- Local storage.
+- Public configuration.
+- Network responses.
+
+Use environment variables or secure secrets.
+
+Recommended backend configuration:
+
+GEMINI_API_KEY=your_secret
+GEMINI_MODEL=your_configured_model
+
+Implement:
+
+- Personalized destination recommendations.
+- End-to-end itinerary generation.
+- Natural language travel chat.
+- Context-aware conversations.
+- Itinerary editing.
+- Budget optimization.
+- Weather-aware alternatives.
+- Travel safety suggestions.
+- Nearby destination suggestions.
+- Trip summarization.
+- Multi-day planning.
+
+## Structured AI response
+
+Do not depend on unstructured text alone.
+
+Create validated structured JSON responses.
+
+An itinerary response should contain:
+
+- tripSummary
+- startingLocation
+- destinationRecommendations
+- days
+- attractions
+- activities
+- accommodation
+- transport
+- restaurants
+- expenses
+- totalGroupBudget
+- estimatedTotalCost
+- perPersonCost
+- remainingBudget
+- safetyInformation
+- assumptions
+- warnings
+- sourceReferences
+
+Validate the JSON before saving it.
+
+If Gemini returns invalid JSON or incomplete information, retry safely or return a useful error.
+
+AI must never invent:
+- Hotel availability.
+- Booking confirmations.
+- Opening hours.
+- Entry fees.
+- Train schedules.
+- Bus schedules.
+- Weather conditions.
+- Real-time prices.
+- Safety alerts.
+- Destination coordinates.
+
+Use verified data services and mark estimates clearly.
+
+## MAHATRIP AI personality
+
+The assistant should sound like a helpful professional Maharashtra travel expert.
+
+It should:
+- Communicate naturally.
+- Ask only necessary follow-up questions.
+- Remember the current trip context.
+- Explain why it recommends a destination.
+- Give practical advice.
+- Offer alternatives.
+- Avoid overwhelming the user.
+- Support English, Hindi, and Marathi initially.
+
+# 9. MAPS, GEOCODING AND ROUTING
+
+Implement interactive maps using Leaflet and OpenStreetMap or an equivalent properly licensed mapping solution.
+
+Features:
+- Show tourist locations on the map.
+- Show multiple itinerary stops.
+- Show starting location.
+- Show hotels and restaurants.
+- Show nearby attractions.
+- Calculate road routes using OSRM or a suitable routing provider.
+- Show distance and estimated road travel time.
+- Allow users to select a destination from the map.
+- Support location-based discovery when the user grants permission.
+
+IMPORTANT:
+
+Use actual road-routing services for driving directions.
+
+Do not use straight-line distance as actual road distance.
+
+Do not represent OSRM road routes as train or bus routes.
+
+For rail and bus planning, use verified transport information or legitimate external services.
+
+Provide attribution for OpenStreetMap and other map providers as required.
+
+# 10. WEATHER AND SEASONAL TRAVEL INTELLIGENCE
+
+Integrate a reliable weather provider.
+
+Show:
+- Current conditions.
+- Forecast where available.
+- Temperature.
+- Rain probability.
+- Weather warnings.
+- Destination suitability.
+
+Create seasonal recommendations:
+- Monsoon waterfalls.
+- Winter hill stations.
+- Summer destinations.
+- Beach seasons.
+- Wildlife safari seasons.
+- Flower blooming seasons.
+
+If the weather makes an activity unsafe or unsuitable, recommend alternatives.
+
+Do not fabricate forecasts.
+
+# 11. HOTELS, TRANSPORT, RESTAURANTS AND BOOKINGS
+
+Build proper recommendation modules.
+
+Hotels:
+- Hotel name.
+- Actual images.
+- Location.
+- Price range.
+- Amenities.
+- Ratings when verified.
+- Booking link.
+
+Transport:
+- Trains.
+- Buses.
+- Taxis.
+- Car rentals.
+- Self-drive.
+- Local transport.
+
+Restaurants:
+- Restaurant name.
+- Cuisine.
+- Location.
+- Price range.
+- Opening hours when verified.
+- Real images where available.
+
+Booking integration:
+
+Use legitimate booking APIs or official provider booking pages.
+
+If direct booking APIs are unavailable:
+- Display an external booking link.
+- Clearly explain that the booking happens on the provider's website.
+- Do not pretend a booking has been completed.
+- Never create fake booking confirmations.
+
+Do not store payment card details.
+
+# 12. SAFETY AND SECURITY
+
+Create a serious travel safety module.
+
+Features:
+- Emergency contacts.
+- Nearby hospitals.
+- Nearby police stations.
+- Nearby pharmacies.
+- Road safety information.
+- Trekking safety.
+- Waterfall and monsoon warnings.
+- Wildlife safety.
+- Beach safety.
+- Weather alerts.
+- Emergency location sharing with explicit user permission.
+- Trusted contact information when voluntarily provided.
+
+Display India emergency number 112, with appropriate context.
+
+Do not invent emergency phone numbers or claim that a live emergency service has been contacted.
+
+Security requirements:
+
+- JWT authentication.
+- Secure password hashing.
+- Role-based access control.
+- User ownership validation.
+- Backend request validation.
+- SQL injection prevention.
+- XSS protection.
+- CSRF protection where applicable.
+- CORS restrictions.
+- Rate limiting.
+- Secure secrets management.
+- Gemini prompt-injection resistance.
+- Safe handling of external API responses.
+- Logging without exposing credentials or personal information.
+
+Protect saved trips so one user cannot read or edit another user's private trips.
+
+# 13. SAVED TRIPS AND USER DASHBOARD
+
+Implement or extend the user dashboard.
+
+Include:
+- User profile.
+- Saved destinations.
+- Saved trips.
+- Upcoming trips.
+- Past trips.
+- Favourite places.
+- Travel history.
+- Budget summaries.
+- Downloadable itinerary.
+- Trip sharing.
+- Trip editing.
+
+Allow users to save and resume an incomplete trip.
+
+Persist important trip data in MySQL.
+
+# 14. DATABASE AND BACKEND DEVELOPMENT
+
+First inspect the existing MySQL schema, JPA entities, repositories, controllers, services, migrations, and existing destination records.
+
+Do not duplicate existing tables.
+
+Extend the existing database safely.
+
+Potential entities, only where equivalent entities do not already exist:
+
+- District
+- Division
+- Taluka
+- Locality
+- Destination
+- DestinationImage
+- DestinationCategory
+- DestinationReview
+- Hotel
+- Restaurant
+- Activity
+- TransportOption
+- Itinerary
+- ItineraryDay
+- ItineraryStop
+- TripExpense
+- SavedTrip
+- UserFavourite
+- SafetyInformation
+- DataSource
+- ImportLog
+
+Use appropriate relationships, indexes, unique constraints, validation, and timestamps.
+
+Use Flyway or the project's existing migration strategy.
+
+Never drop and recreate the database.
+
+Never delete existing destinations.
+
+Existing records must be preserved and enriched carefully.
+
+## Geography and destination ingestion
+
+Build a reliable, incremental data importer.
+
+Possible sources:
+- Local Government Directory.
+- Census of India.
+- Maharashtra government open data.
+- Maharashtra Tourism.
+- Maharashtra Forest Department.
+- Archaeological Survey of India.
+- OpenStreetMap and Overpass.
+- Wikimedia Commons.
+
+Use official administrative datasets for administrative boundaries and district/taluka hierarchy.
+
+Use OSM for discovering mapped places, not as proof that every mapped locality is an official administrative unit.
+
+Importer requirements:
+- Per-record idempotency.
+- Duplicate detection.
+- Source tracking.
+- Import timestamps.
+- Verification status.
+- Error logs.
+- Incremental updates.
+- Manual review.
+- Retry support.
+- No overwriting manually verified records with unverified records.
+
+Suggested source statuses:
+
+source:
+GOVERNMENT, OSM, WIKIMEDIA, MANUAL, OTHER
+
+verification_status:
+AUTO, REVIEW, VERIFIED, REJECTED
+
+Do not invent government datasets, official records, coordinates, or attractions to fill gaps.
+
+Clearly identify missing data.
+
+# 15. FRONTEND FEATURE IMPLEMENTATION
+
+Preserve my existing frontend layout, colors, navigation, design system, and existing components wherever possible.
+
+Do not redesign the entire website unnecessarily.
+
+Extend the frontend with functional modules:
+
+1. AI Trip Planner.
+2. MAHATRIP AI Chat.
+3. Destination Discovery.
+4. Explore All Districts.
+5. District Details.
+6. Hidden Gems.
+7. Destination Galleries.
+8. Interactive Map.
+9. Day-by-Day Itinerary.
+10. Hotel Finder.
+11. Transport Planner.
+12. Restaurant Finder.
+13. Activities.
+14. Group Budget Dashboard.
+15. Safety Center.
+16. Saved Trips.
+17. User Dashboard.
+18. Trip Editing.
+19. Booking Redirection.
+20. Weather Information.
+
+Design requirements:
+- Premium tourism website experience.
+- High-quality authentic destination photography.
+- Responsive mobile, tablet, and desktop layouts.
+- Clear typography.
+- Attractive destination cards.
+- Interactive maps.
+- Smooth animations.
+- Loading skeletons.
+- Useful empty states.
+- Error handling.
+- Accessible controls.
+- Clear budget visualizations.
+- Fast page loading.
+
+Every button and interaction must work.
+
+Do not create non-functional buttons or fake data-driven interfaces.
+
+# 16. API DESIGN
+
+Reuse existing endpoints where possible.
+
+Inspect the existing API structure before adding new routes.
+
+Possible API capabilities:
+
+GET /api/districts
+GET /api/districts/{id}
+GET /api/destinations
+GET /api/destinations/{id}
+GET /api/destinations/search
+GET /api/destinations/nearby
+GET /api/destinations/district/{districtId}
+GET /api/hidden-gems
+GET /api/hotels
+GET /api/restaurants
+GET /api/activities
+GET /api/weather
+
+POST /api/ai/recommendations
+POST /api/ai/itinerary
+POST /api/ai/chat
+PUT /api/ai/itinerary/{id}
+POST /api/trips
+GET /api/trips
+GET /api/trips/{id}
+PUT /api/trips/{id}
+DELETE /api/trips/{id}
+POST /api/trips/{id}/expenses
+
+These are suggested capabilities, not instructions to duplicate existing endpoints. Adapt them to the actual existing API architecture.
+
+Use pagination, filtering, sorting, validation, proper HTTP status codes, and consistent error responses.
+
+# 17. PERFORMANCE AND SCALABILITY
+
+Implement:
+- Database pagination.
+- Indexed search fields.
+- Efficient queries.
+- API response caching where appropriate.
+- Image lazy loading.
+- Image optimization.
+- Debounced search.
+- Efficient map rendering.
+- Rate limiting for AI calls.
+- AI response caching where appropriate.
+- Background processing for large data imports.
+- Logging and monitoring.
+
+Do not send the entire Maharashtra database to Gemini for every request.
+
+Retrieve relevant destination data from MySQL, rank it, and provide only the useful context to the AI model.
+
+# 18. TESTING AND VERIFICATION
+
+Do not stop after writing code.
+
+Actually test the implementation.
+
+Backend:
+- Maven compilation.
+- Existing tests.
+- New service tests.
+- Controller tests.
+- Repository tests.
+- Authentication tests.
+- Authorization tests.
+- Budget calculation tests.
+- Itinerary validation tests.
+- Database migration tests.
+
+Frontend:
+- Production build.
+- Route testing.
+- API integration.
+- Form validation.
+- Loading and error states.
+- Responsive layout.
+- Authentication flows.
+- Itinerary editing.
+- Budget calculations.
+
+Integration:
+- React frontend communicates with Spring Boot.
+- Spring Boot connects to MySQL.
+- Gemini calls happen securely.
+- Saved trips persist.
+- User ownership is enforced.
+- Images load correctly.
+- Maps show correct locations.
+
+Test the existing 142 destinations and preserve them.
+
+Verify district coverage separately from attraction coverage.
+
+A count of 36 districts does not prove that all tourist attractions have been imported.
+
+# 19. IMPLEMENTATION ORDER
+
+Implement in logical phases without breaking existing features.
+
+PHASE 1:
+Inspect existing project and architecture. Identify what is already implemented and what is missing.
+
+PHASE 2:
+Complete district, taluka, locality, and tourist attraction database integration.
+
+PHASE 3:
+Implement authentic destination image discovery, galleries, attribution, and image management.
+
+PHASE 4:
+Implement MAHATRIP AI recommendation and itinerary engine.
+
+PHASE 5:
+Implement group budget calculation and optimization.
+
+PHASE 6:
+Implement hotel, restaurant, transport, and activity recommendations.
+
+PHASE 7:
+Implement maps, routing, geolocation, and weather.
+
+PHASE 8:
+Implement safety, saved trips, user dashboard, and trip editing.
+
+PHASE 9:
+Complete security, testing, performance optimization, and integration.
+
+Do not merely create plans or documentation. Implement the features in the actual codebase.
+
+If the task is too large for one execution, finish one phase at a time, maintain a checklist, and continue from the next incomplete phase without discarding previous work.
+
+# 20. FINAL ACCEPTANCE CRITERIA
+
+The application is considered complete only when:
+
+1. Existing UI is preserved and enhanced.
+2. All 36 Maharashtra districts are represented with verified administrative identity.
+3. Tourist attractions are linked to their correct districts.
+4. Hidden gems can be explored.
+5. Authentic destination photographs are displayed with source information.
+6. MAHATRIP AI generates personalized itineraries.
+7. The AI plans the complete trip from starting location to return journey.
+8. The budget is calculated for the entire group.
+9. Hotels, transport, restaurants, and activities are integrated.
+10. Maps and routes work.
+11. Weather and safety information are properly sourced.
+12. Users can save and edit trips.
+13. JWT and ownership security work.
+14. Existing MySQL data remains intact.
+15. The React frontend and Spring Boot backend communicate successfully.
+16. No fake bookings, fake availability, fake prices, or fabricated destination records are shown.
+17. The project builds successfully and the important workflows pass tests.
+
+# 21. FINAL INSTRUCTIONS TO THE AI DEVELOPMENT AGENT
+
+Start by inspecting the complete existing project.
+
+Produce an internal implementation checklist based on the actual code, not assumptions.
+
+Identify:
+- Existing working features.
+- Incomplete features.
+- Missing backend APIs.
+- Missing frontend integrations.
+- Existing database entities.
+- Existing security implementation.
+- Existing Gemini integration.
+- Missing destination data.
+- Missing image sources.
+
+Then implement the features in the order described.
+
+Do not ask me to rebuild the frontend.
+
+Do not replace the application with a generic travel template.
+
+Do not use fake JSON arrays as a substitute for database integration.
+
+Do not claim that a feature works until it has been implemented and tested.
+
+Do not expose API keys or secrets.
+
+Do not destroy existing code or data.
+
+Keep the application maintainable, modular, secure, scalable, and ready for future expansion.
+
+THE FINAL VISION:
+
+Maharashtra Explorer should become a complete AI-powered Maharashtra travel ecosystem where a person can enter their starting location, dates, group size, budget, and interests, and MAHATRIP AI intelligently discovers destinations, builds the entire itinerary, recommends accommodation, transport, food and activities, calculates the total group budget, provides real images and maps, assists with bookings, and supports the traveller throughout the journey.
+
+Build a real product, not just a beautiful demonstration.

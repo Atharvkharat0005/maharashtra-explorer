@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login – Maharashtra Explorer</title>
+  <meta name="description" content="Log in to your Maharashtra Explorer account to save itineraries and access personalized trip plans." />
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light">
+
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html" id="nav-brand-logo">
+        <span class="brand-badge"><i class="fa-solid fa-mountain-sun"></i></span>
+        <span>Maharashtra Explorer</span>
+      </a>
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarMain">
+        <ul class="navbar-nav ms-auto me-3 mb-2 mb-lg-0 align-items-lg-center">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html" id="nav-home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="destinations.html" id="nav-destinations">Destinations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="plan-trip.html" id="nav-plan-trip">Plan My Trip</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="travel-agents.html" id="nav-agents">Travel Agents</a>
+          </li>
+        </ul>
+        
+        <div class="d-flex align-items-center gap-2">
+          <a href="login.html" class="btn navbar-btn-outline active" id="nav-login-btn">
+            <i class="fa-regular fa-user me-1"></i> Login
+          </a>
+          <a href="plan-trip.html" class="btn navbar-btn-primary" id="nav-cta-btn">
+            <i class="fa-solid fa-wand-magic-sparkles me-1"></i> AI Planner
+          </a>
+          <!-- Language Selector at the very right of the header -->
+          <div class="dropdown ms-1">
+            <button class="btn navbar-btn-outline dropdown-toggle d-flex align-items-center gap-1" type="button" id="headerLanguageDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 6px 12px; font-size: 0.82rem;">
+              <i class="fa-solid fa-globe text-warning me-1"></i>
+              <span id="currentLangDisplay">English</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end shadow" aria-labelledby="headerLanguageDropdown" style="background: #18130f; border: 1px solid rgba(255,255,255,0.15); border-radius: 12px;">
+              <li><button class="dropdown-item py-2 text-white d-flex align-items-center justify-content-between" type="button" onclick="setSiteLanguage('en')"><span>English</span> <span class="badge bg-secondary ms-2">EN</span></button></li>
+              <li><button class="dropdown-item py-2 text-white d-flex align-items-center justify-content-between" type="button" onclick="setSiteLanguage('mr')"><span>मराठी</span> <span class="badge bg-warning text-dark ms-2">MR</span></button></li>
+              <li><button class="dropdown-item py-2 text-white d-flex align-items-center justify-content-between" type="button" onclick="setSiteLanguage('hi')"><span>हिन्दी</span> <span class="badge bg-warning text-dark ms-2">HI</span></button></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Login Form Main Section -->
+  <main class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-icon">
+          <i class="fa-solid fa-right-to-bracket"></i>
+        </div>
+        <h1 class="h3 fw-bold text-dark mb-1">Welcome Back</h1>
+        <p class="text-muted small">Log in to view your profile and manage saved itineraries.</p>
+      </div>
+
+      <!-- Demo User Helper Banner -->
+      <div class="alert alert-warning py-2 px-3 small mb-3" role="alert">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <i class="fa-solid fa-user-check me-1"></i> <strong>Demo Account:</strong> <code>demo.traveler@example.com</code> / <code>Password123</code>
+          </div>
+          <button type="button" class="btn btn-xs btn-outline-dark py-0 px-2 small" onclick="fillDemoUser()">Auto-Fill</button>
+        </div>
+      </div>
+
+      <!-- Feedback Alert Container -->
+      <div id="auth-alert-container"></div>
+
+      <form id="login-form">
+        <!-- Email Field -->
+        <div class="mb-3">
+          <label for="login-email" class="form-label small fw-bold text-dark">Email Address</label>
+          <div class="input-group">
+            <span class="input-group-text bg-white"><i class="fa-regular fa-envelope text-muted"></i></span>
+            <input type="email" id="login-email" class="form-control" placeholder="name@example.com" required value="demo.traveler@example.com" />
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div class="mb-3">
+          <div class="d-flex justify-content-between">
+            <label for="login-password" class="form-label small fw-bold text-dark">Password</label>
+            <a href="#" class="small text-primary text-decoration-none" onclick="alert('Password reset API simulated endpoint: POST /api/auth/forgot-password'); return false;">Forgot?</a>
+          </div>
+          <div class="input-group">
+            <span class="input-group-text bg-white"><i class="fa-solid fa-lock text-muted"></i></span>
+            <input type="password" id="login-password" class="form-control" placeholder="Enter your password" required value="Password123" />
+          </div>
+        </div>
+
+        <!-- Remember Me Checkbox -->
+        <div class="form-check mb-4">
+          <input class="form-check-input" type="checkbox" id="remember-me" checked />
+          <label class="form-check-label small text-muted" for="remember-me">
+            Remember me on this device
+          </label>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary-custom btn-lg w-100 mb-3" id="login-submit-btn">
+          <span id="btn-text">Sign In</span>
+          <span id="btn-spinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+        </button>
+      </form>
+
+      <div class="text-center pt-3 border-top">
+        <span class="small text-muted">Don't have an account yet?</span>
+        <a href="register.html" class="small fw-bold text-primary text-decoration-none ms-1">Create an Account</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center py-3 text-muted small border-top bg-white">
+    © 2026 Maharashtra Explorer. Designed for Maharashtra Tourism.
+  </footer>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Application JS Files -->
+  <script src="js/api.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- Login Form Handling Script using Simulated API -->
+  <script>
+    function fillDemoUser() {
+      document.getElementById("login-email").value = "demo.traveler@example.com";
+      document.getElementById("login-password").value = "Password123";
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const loginForm = document.getElementById("login-form");
+      const submitBtn = document.getElementById("login-submit-btn");
+      const btnText = document.getElementById("btn-text");
+      const btnSpinner = document.getElementById("btn-spinner");
+      const alertContainer = document.getElementById("auth-alert-container");
+
+      loginForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById("login-email").value;
+        const password = document.getElementById("login-password").value;
+
+        // UI Loading state
+        submitBtn.disabled = true;
+        btnText.textContent = "Authenticating with server...";
+        btnSpinner.classList.remove("d-none");
+        alertContainer.innerHTML = "";
+
+        try {
+          // Call the simulated Spring Boot server API in js/api.js
+          const response = await loginUserAPI({ email, password });
+
+          if (response.success && response.data) {
+            alertContainer.innerHTML = `
+              <div class="alert alert-success py-2 px-3 small mb-3" role="alert">
+                <i class="fa-solid fa-circle-check me-1"></i> ${response.message}
+                <div class="mt-1 small">Logged in as: <strong>${response.data.user.fullName}</strong></div>
+              </div>
+            `;
+            setTimeout(() => {
+              window.location.href = "index.html";
+            }, 700);
+          } else {
+            alertContainer.innerHTML = `
+              <div class="alert alert-danger py-2 px-3 small mb-3" role="alert">
+                <i class="fa-solid fa-circle-exclamation me-1"></i> ${response.message || "Authentication failed."}
+              </div>
+            `;
+            submitBtn.disabled = false;
+            btnText.textContent = "Sign In";
+            btnSpinner.classList.add("d-none");
+          }
+        } catch (error) {
+          console.error("API error:", error);
+          alertContainer.innerHTML = `
+            <div class="alert alert-danger py-2 px-3 small mb-3" role="alert">
+              <i class="fa-solid fa-triangle-exclamation me-1"></i> Server communication error. Please try again.
+            </div>
+          `;
+          submitBtn.disabled = false;
+          btnText.textContent = "Sign In";
+          btnSpinner.classList.add("d-none");
+        }
+      });
+    });
+  </script>
+</body>
+</html>

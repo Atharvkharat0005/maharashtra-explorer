@@ -1,0 +1,79 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+:root {
+  --me-canvas: #0d0b09;
+  --me-surface: #18130f;
+  --me-surface-elevated: #211a14;
+  --me-well: #110d0a;
+  --me-border: rgba(255, 255, 255, 0.12);
+  --me-text-primary: #ffffff;
+  --me-text-secondary: #e7e5e4;
+  --me-text-muted: #a8a29e;
+  --me-accent: #ff6b1a;
+  --me-accent-hover: #ff8c38;
+  --me-success: #34d399;
+  --me-warning: #fbbf24;
+  --me-danger: #f87171;
+  color-scheme: dark;
+}
+
+@layer base {
+  html,
+  body {
+    background-color: var(--me-canvas);
+    color: var(--me-text-primary);
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+
+  input,
+  select,
+  textarea {
+    background-color: var(--me-well);
+    color: #f5f5f4;
+    border-color: rgba(255, 255, 255, 0.18);
+  }
+
+  select option,
+  select optgroup {
+    background-color: #18130f;
+    color: #f5f5f4;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #a8a29e;
+    opacity: 1;
+  }
+
+  button:disabled,
+  input:disabled,
+  select:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Custom accessible scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 107, 26, 0.65);
+}

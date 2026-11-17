@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plan My Trip – Intelligent Maharashtra AI Travel Assistant</title>
+  <meta name="description" content="Generate a customized travel itinerary with budget estimation and destination recommendations for Maharashtra." />
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html" id="nav-brand-logo">
+        <span class="brand-badge"><i class="fa-solid fa-mountain-sun"></i></span>
+        <span>Maharashtra Explorer</span>
+      </a>
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarMain">
+        <ul class="navbar-nav ms-auto me-3 mb-2 mb-lg-0 align-items-lg-center">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html" id="nav-home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="destinations.html" id="nav-destinations">Destinations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="plan-trip.html" id="nav-plan-trip">Plan My Trip</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="travel-agents.html" id="nav-agents">Travel Agents</a>
+          </li>
+        </ul>
+        
+        <div class="d-flex align-items-center gap-2">
+          <a href="login.html" class="btn navbar-btn-outline" id="nav-login-btn">
+            <i class="fa-regular fa-user me-1"></i> Login
+          </a>
+          <a href="plan-trip.html" class="btn navbar-btn-primary" id="nav-cta-btn">
+            <i class="fa-solid fa-wand-magic-sparkles me-1"></i> AI Planner
+          </a>
+          <!-- Language Selector at the very right of the header -->
+          <div class="dropdown ms-1">
+            <button class="btn navbar-btn-outline dropdown-toggle d-flex align-items-center gap-1" type="button" id="headerLanguageDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 6px 12px; font-size: 0.82rem;">
+              <i class="fa-solid fa-globe text-warning me-1"></i>
+              <span id="currentLangDisplay">English</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end shadow" aria-labelledby="headerLanguageDropdown" style="background: #18130f; border: 1px solid rgba(255,255,255,0.15); border-radius: 12px;">
+              <li><button class="dropdown-item py-2 text-white d-flex align-items-center justify-content-between" type="button" onclick="setSiteLanguage('en')"><span>English</span> <span class="badge bg-secondary ms-2">EN</span></button></li>
+              <li><button class="dropdown-item py-2 text-white d-flex align-items-center justify-content-between" type="button" onclick="setSiteLanguage('mr')"><span>मराठी</span> <span class="badge bg-warning text-dark ms-2">MR</span></button></li>
+              <li><button class="dropdown-item py-2 text-white d-flex align-items-center justify-content-between" type="button" onclick="setSiteLanguage('hi')"><span>हिन्दी</span> <span class="badge bg-warning text-dark ms-2">HI</span></button></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-2 small text-light opacity-75">
+          <li class="breadcrumb-item"><a href="index.html" class="text-white text-decoration-none">Home</a></li>
+          <li class="breadcrumb-item active text-warning" aria-current="page">Plan My Trip</li>
+        </ol>
+      </nav>
+      <h1>Intelligent Trip Planner</h1>
+      <p>Tell us your interests, budget, and duration — our intelligent recommendation engine crafts your perfect Maharashtra itinerary.</p>
+    </div>
+  </header>
+
+  <!-- Main Planner Container -->
+  <main class="container mb-5">
+    
+    <div id="prefilled-notice"></div>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        
+        <!-- Planner Input Form Card -->
+        <div class="planner-card mb-5">
+          
+          <div class="d-flex align-items-center gap-3 mb-4 pb-3 border-bottom">
+            <div class="p-3 bg-primary-light text-primary rounded-circle fs-4">
+              <i class="fa-solid fa-route"></i>
+            </div>
+            <div>
+              <h2 class="h4 fw-bold text-dark mb-1">Customize Your Travel Preferences</h2>
+              <p class="text-muted small mb-0">Fill out your travel parameters to generate instant destination and day-wise recommendations.</p>
+            </div>
+          </div>
+
+          <form id="trip-planner-form">
+            
+            <div class="row g-4 mb-4">
+              <!-- Starting Location -->
+              <div class="col-md-6">
+                <label for="planner-start" class="form-label fw-bold text-dark">
+                  <i class="fa-solid fa-location-arrow text-primary me-1"></i> Starting Location
+                </label>
+                <select id="planner-start" class="form-select" required>
+                  <option value="Mumbai">Mumbai</option>
+                  <option value="Pune" selected>Pune</option>
+                  <option value="Nagpur">Nagpur</option>
+                  <option value="Nashik">Nashik</option>
+                  <option value="Chhatrapati Sambhajinagar (Aurangabad)">Chhatrapati Sambhajinagar (Aurangabad)</option>
+                  <option value="Kolhapur">Kolhapur</option>
+                  <option value="Solapur">Solapur</option>
+                  <option value="Other City in Maharashtra">Other City</option>
+                </select>
+              </div>
+
+              <!-- Number of Travelers -->
+              <div class="col-md-6">
+                <label for="planner-travelers" class="form-label fw-bold text-dark">
+                  <i class="fa-solid fa-users text-primary me-1"></i> Number of Travelers
+                </label>
+                <select id="planner-travelers" class="form-select" required>
+                  <option value="1">1 Person (Solo Explorer)</option>
+                  <option value="2" selected>2 Persons (Couple / Friends)</option>
+                  <option value="4">4 Persons (Family / Small Group)</option>
+                  <option value="6">6 Persons (Group Tour)</option>
+                  <option value="10">10+ Persons (Large Expedition)</option>
+                </select>
+              </div>
+
+              <!-- Trip Duration (Days) -->
+              <div class="col-md-6">
+                <label for="planner-days" class="form-label fw-bold text-dark">
+                  <i class="fa-regular fa-calendar-days text-primary me-1"></i> Travel Duration
+                </label>
+                <select id="planner-days" class="form-select" required>
+                  <option value="1">1 Day (Quick Day Trip)</option>
+                  <option value="2">2 Days (Weekend Getaway)</option>
+                  <option value="3" selected>3 Days (Long Weekend / Circuit)</option>
+                  <option value="4">4 Days (Holiday Tour)</option>
+                  <option value="5">5 Days (Comprehensive Trip)</option>
+                  <option value="7">7 Days (Grand Maharashtra Heritage Tour)</option>
+                </select>
+              </div>
+
+              <!-- Total Budget Slider -->
+              <div class="col-md-6">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <label for="planner-budget" class="form-label fw-bold text-dark mb-0">
+                    <i class="fa-solid fa-indian-rupee-sign text-primary me-1"></i> Total Estimated Budget
+                  </label>
+                  <span id="budget-display" class="badge bg-primary fs-6">₹15,000</span>
+                </div>
+                <input type="range" class="form-range" id="planner-budget" min="3000" max="60000" step="1000" value="15000" />
+                <div class="d-flex justify-content-between text-muted small">
+                  <span>₹3,000</span>
+                  <span>₹25,000</span>
+                  <span>₹60,000+</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Interests (Checkboxes) -->
+            <div class="mb-4">
+              <label class="form-label fw-bold text-dark d-block mb-2">
+                <i class="fa-solid fa-heart text-danger me-1"></i> Select Your Travel Interests <span class="text-muted fw-normal">(Select all that apply)</span>
+              </label>
+              <div class="row g-2">
+                <div class="col-6 col-md-3">
+                  <label class="interest-checkbox-card">
+                    <input type="checkbox" name="interests" value="Nature" checked />
+                    <div class="interest-card-inner">
+                      <span class="fs-5 d-block mb-1">🌿</span>
+                      <span>Nature</span>
+                    </div>
+                  </label>
+                </div>
+                <div class="col-6 col-md-3">
+                  <label class="interest-checkbox-card">
+                    <input type="checkbox" name="interests" value="Adventure" checked />
+                    <div class="interest-card-inner">
+                      <span class="fs-5 d-block mb-1">🧗</span>
+                      <span>Adventure</span>
+                    </div>
+                  </label>
+                </div>
+                <div class="col-6 col-md-3">
+                  <label class="interest-checkbox-card">
+                    <input type="checkbox" name="interests" value="Historical Places" checked />
+                    <div class="interest-card-inner">
+                      <span class="fs-5 d-block mb-1">🏰</span>
+                      <span>Historical Places</span>
+                    </div>
+                  </label>
+                </div>
+                <div class="col-6 col-md-3">
+                  <label class="interest-checkbox-card">
+                    <input type="checkbox" name="interests" value="Beaches" />
+                    <div class="interest-card-inner">
+                      <span class="fs-5 d-block mb-1">🏖</span>
+                      <span>Beaches</span>
+                    </div>
+                  </label>
+                </div>
+                <div class="col-6 col-md-3">
+                  <label class="interest-checkbox-card">
+                    <input type="checkbox" name="interests" value="Mountains" />
+                    <div class="interest-card-inner">
+                      <span class="fs-5 d-block mb-1">⛰</span>
+                      <span>Mountains</span>
+                    </div>
+                  </label>
+                </div>
+                <div class="col-6 col-md-3">
+                  <label class="interest-checkbox-card">
+                    <input type="checkbox" name="interests" value="Religious Places" />
+                    <div class="interest-card-inner">
+                      <span class="fs-5 d-block mb-1">🛕</span>
+                      <span>Religious Places</span>
+                    </div>
+                  </label>
+                </div>
+                <div class="col-6 col-md-3">
+                  <label class="interest-checkbox-card">
+                    <input type="checkbox" name="interests" value="Wildlife" />
+                    <div class="interest-card-inner">
+                      <span class="fs-5 d-block mb-1">🐅</span>
+                      <span>Wildlife</span>
+                    </div>
+                  </label>
+                </div>
+                <div class="col-6 col-md-3">
+                  <label class="interest-checkbox-card">
+                    <input type="checkbox" name="interests" value="Food and Culture" />
+                    <div class="interest-card-inner">
+                      <span class="fs-5 d-block mb-1">🍲</span>
+                      <span>Food and Culture</span>
+                    </div>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Transport & Stay Preferences -->
+            <div class="row g-4 mb-4">
+              <div class="col-md-6">
+                <label for="planner-transport" class="form-label fw-bold text-dark">
+                  <i class="fa-solid fa-car text-primary me-1"></i> Preferred Transportation
+                </label>
+                <select id="planner-transport" class="form-select">
+                  <option value="Private Car / Self-Drive Cab">Private Car / Self-Drive Cab</option>
+                  <option value="Scenic Tourist Bus / MSRTC Semi-Luxury">Scenic Tourist Bus / MSRTC Shivneri</option>
+                  <option value="Indian Railways Superfast Train">Indian Railways Superfast / Vande Bharat Express</option>
+                  <option value="Flight & Rental Cab">Flight + Local Rental Cab</option>
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <label for="planner-stay" class="form-label fw-bold text-dark">
+                  <i class="fa-solid fa-hotel text-primary me-1"></i> Accommodation Preference
+                </label>
+                <select id="planner-stay" class="form-select">
+                  <option value="Budget Homestay / MTDC Tourist Resort">Budget Homestay / MTDC Tourist Resort</option>
+                  <option value="Standard 3-Star Family Hotel" selected>Standard 3-Star Family Hotel</option>
+                  <option value="Luxury Nature Resort / Heritage Palace">Luxury Nature Resort / Heritage Palace</option>
+                  <option value="Scenic Campsite / Tent Glamping">Scenic Campsite / Tent Glamping</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Submit Action -->
+            <div class="text-center pt-2">
+              <button type="submit" class="btn btn-primary-custom btn-lg px-5" id="generate-trip-btn">
+                <i class="fa-solid fa-wand-magic-sparkles me-2"></i> Generate My Trip
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Loading Spinner (Hidden by default) -->
+        <div id="planner-loading" class="text-center py-5" style="display: none;">
+          <div class="spinner-border text-primary" role="status" style="width: 3.5rem; height: 3.5rem;">
+            <span class="visually-hidden">Calculating recommendations...</span>
+          </div>
+          <h4 class="mt-3 fw-bold text-dark">Crafting Your Personalized Maharashtra Trip...</h4>
+          <p class="text-muted small">Matching your budget, duration, and interests with optimal travel circuits.</p>
+        </div>
+
+        <!-- Generated Results Container (Hidden until form submission) -->
+        <div id="trip-results-container" style="display: none;">
+          
+          <!-- Summary Header -->
+          <div id="trip-summary-header"></div>
+
+          <!-- Recommended Destinations Grid -->
+          <div class="mb-4">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+              <h3 class="h5 fw-bold text-dark mb-0">
+                <i class="fa-solid fa-compass text-primary me-2"></i> Top Recommended Destinations for You
+              </h3>
+              <span class="badge bg-light text-dark border">Matched by AI Scoring</span>
+            </div>
+            <div class="row g-3" id="recommended-destinations-grid"></div>
+          </div>
+
+          <!-- Day-by-Day Sample Itinerary -->
+          <div class="card p-4 border shadow-sm mb-4 bg-white">
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 pb-2 border-bottom">
+              <div>
+                <h3 class="h5 fw-bold text-dark mb-0">
+                  <i class="fa-solid fa-timeline text-primary me-2"></i> Suggested Day-by-Day Itinerary
+                </h3>
+                <span class="text-muted small">Flexible timeline designed around your selected travel duration.</span>
+              </div>
+              <button class="btn btn-sm btn-outline-secondary mt-2 mt-md-0" onclick="printItinerary()">
+                <i class="fa-solid fa-print me-1"></i> Print / Save Itinerary
+              </button>
+            </div>
+
+            <div id="itinerary-timeline"></div>
+          </div>
+
+          <!-- Budget Expense Breakdown -->
+          <div class="card p-4 border shadow-sm mb-4 bg-light">
+            <h3 class="h5 fw-bold text-dark mb-3">
+              <i class="fa-solid fa-chart-pie text-success me-2"></i> Estimated Expense Breakdown
+            </h3>
+            <div id="budget-breakdown-details"></div>
+          </div>
+
+          <!-- Travel Agent Inquiry Trigger -->
+          <div class="p-4 bg-white rounded-3 border shadow-sm text-center">
+            <h4 class="h5 fw-bold text-dark mb-2">Want a Verified Local Guide or All-Inclusive Booking?</h4>
+            <p class="text-muted small max-w-600 mx-auto mb-3">
+              Connect with our certified Maharashtra travel agents who can arrange verified transport, luxury stays, and guided trekking tours for this exact itinerary.
+            </p>
+            <a href="travel-agents.html" class="btn btn-secondary-custom">
+              <i class="fa-solid fa-user-tie me-1"></i> Connect with Travel Agents
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer-custom">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <span class="brand-badge"><i class="fa-solid fa-mountain-sun"></i></span>
+            <span class="h5 mb-0 text-white fw-bold">Maharashtra Explorer</span>
+          </div>
+          <p class="small text-muted mb-3">
+            Your intelligent personal travel companion for exploring the culture, natural wonders, royal forts, and heritage of Maharashtra.
+          </p>
+        </div>
+
+        <div class="col-lg-2 col-md-6 col-6">
+          <h4 class="footer-title">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="destinations.html">All Destinations</a></li>
+            <li><a href="plan-trip.html">AI Trip Planner</a></li>
+            <li><a href="travel-agents.html">Travel Agents</a></li>
+            <li><a href="login.html">Member Login</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-6">
+          <h4 class="footer-title">Popular Circuits</h4>
+          <ul class="footer-links">
+            <li><a href="destinations.html?category=Forts">Maratha Forts Trek</a></li>
+            <li><a href="destinations.html?category=Hill%20Stations">Mahabaleshwar Getaway</a></li>
+            <li><a href="destinations.html?category=Beaches">Tarkarli Scuba Tour</a></li>
+            <li><a href="destinations.html?category=Wildlife">Tadoba Tiger Safari</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <h4 class="footer-title">Travel Updates</h4>
+          <form id="newsletter-form" class="d-flex gap-2">
+            <input type="email" id="newsletter-email" class="form-control form-control-sm" placeholder="Your email address" required />
+            <button type="submit" class="btn btn-sm btn-primary-custom">Join</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="mb-0">© 2026 Maharashtra Explorer. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Application JS Files -->
+  <script src="js/api.js"></script>
+  <script src="js/destinations.js"></script>
+  <script src="js/trip-planner.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

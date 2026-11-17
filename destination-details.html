@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Destination Details – Maharashtra Explorer</title>
+  <meta name="description" content="Detailed travel guide, things to do, attractions, and best time to visit top Maharashtra tourist destinations." />
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html" id="nav-brand-logo">
+        <span class="brand-badge"><i class="fa-solid fa-mountain-sun"></i></span>
+        <span>Maharashtra Explorer</span>
+      </a>
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarMain">
+        <ul class="navbar-nav ms-auto me-3 mb-2 mb-lg-0 align-items-lg-center">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html" id="nav-home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="destinations.html" id="nav-destinations">Destinations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="plan-trip.html" id="nav-plan-trip">Plan My Trip</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="travel-agents.html" id="nav-agents">Travel Agents</a>
+          </li>
+        </ul>
+        
+        <div class="d-flex align-items-center gap-2">
+          <a href="login.html" class="btn navbar-btn-outline" id="nav-login-btn">
+            <i class="fa-regular fa-user me-1"></i> Login
+          </a>
+          <a href="plan-trip.html" class="btn navbar-btn-primary" id="nav-cta-btn">
+            <i class="fa-solid fa-wand-magic-sparkles me-1"></i> AI Planner
+          </a>
+          <!-- Language Selector at the very right of the header -->
+          <div class="dropdown ms-1">
+            <button class="btn navbar-btn-outline dropdown-toggle d-flex align-items-center gap-1" type="button" id="headerLanguageDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="padding: 6px 12px; font-size: 0.82rem;">
+              <i class="fa-solid fa-globe text-warning me-1"></i>
+              <span id="currentLangDisplay">English</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end shadow" aria-labelledby="headerLanguageDropdown" style="background: #18130f; border: 1px solid rgba(255,255,255,0.15); border-radius: 12px;">
+              <li><button class="dropdown-item py-2 text-white d-flex align-items-center justify-content-between" type="button" onclick="setSiteLanguage('en')"><span>English</span> <span class="badge bg-secondary ms-2">EN</span></button></li>
+              <li><button class="dropdown-item py-2 text-white d-flex align-items-center justify-content-between" type="button" onclick="setSiteLanguage('mr')"><span>मराठी</span> <span class="badge bg-warning text-dark ms-2">MR</span></button></li>
+              <li><button class="dropdown-item py-2 text-white d-flex align-items-center justify-content-between" type="button" onclick="setSiteLanguage('hi')"><span>हिन्दी</span> <span class="badge bg-warning text-dark ms-2">HI</span></button></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Breadcrumbs Bar -->
+  <div class="bg-light py-2 border-bottom">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0 small">
+          <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none">Home</a></li>
+          <li class="breadcrumb-item"><a href="destinations.html" class="text-decoration-none">Destinations</a></li>
+          <li class="breadcrumb-item active text-dark" id="breadcrumb-current" aria-current="page">Details</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Destination Details Main Content -->
+  <main class="container my-4 my-md-5" id="destination-content-container">
+    
+    <div class="row">
+      <!-- Left / Main Column -->
+      <div class="col-lg-8 mb-4">
+        
+        <!-- Header Info -->
+        <div class="mb-3">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <span class="badge bg-dark px-3 py-1" id="detail-category">Forts</span>
+            <span class="badge bg-success px-2 py-1" id="detail-rating"><i class="fa-solid fa-star text-warning me-1"></i> 4.8 / 5</span>
+            <span class="text-muted small" id="detail-region"><i class="fa-solid fa-map-location-dot me-1"></i> Konkan</span>
+          </div>
+          <h1 class="display-6 fw-bold text-dark mb-1" id="detail-name">Raigad Fort</h1>
+          <div class="text-muted" id="detail-location">
+            <i class="fa-solid fa-location-dot text-danger me-1"></i> Raigad District, Maharashtra
+          </div>
+        </div>
+
+        <!-- Large Image -->
+        <div class="mb-4">
+          <img id="detail-image" src="" alt="Destination Image" class="details-hero-img" />
+        </div>
+
+        <!-- Description -->
+        <section class="mb-4">
+          <h2 class="detail-section-title"><i class="fa-solid fa-book-open text-primary"></i> About This Destination</h2>
+          <p class="lead fs-6 text-secondary" id="detail-description" style="line-height: 1.8;"></p>
+          <div class="feature-pill-list" id="detail-tags-container"></div>
+        </section>
+
+        <!-- Popular Attractions -->
+        <section class="mb-4">
+          <h2 class="detail-section-title"><i class="fa-solid fa-landmark text-warning"></i> Key Highlights & Attractions</h2>
+          <div class="row g-2" id="detail-attractions-list">
+            <!-- Populated dynamically -->
+          </div>
+        </section>
+
+        <!-- Things To Do -->
+        <section class="mb-4">
+          <h2 class="detail-section-title"><i class="fa-solid fa-person-hiking text-success"></i> Top Things To Do & Experiences</h2>
+          <div class="card border p-3 bg-white shadow-sm">
+            <ul class="list-unstyled mb-0" id="detail-things-to-do">
+              <!-- Populated dynamically -->
+            </ul>
+          </div>
+        </section>
+
+        <!-- Practical Travel Tips -->
+        <section class="mb-4">
+          <h2 class="detail-section-title"><i class="fa-solid fa-lightbulb text-warning"></i> Practical Travel Tips & Advisory</h2>
+          <div class="alert alert-warning border-warning d-flex align-items-start gap-3 p-3">
+            <i class="fa-solid fa-triangle-exclamation text-warning fs-4 mt-1"></i>
+            <div id="detail-travel-tips">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Right Sidebar (Quick Facts & CTA) -->
+      <aside class="col-lg-4">
+        <div class="quick-facts-card sticky-top" style="top: 90px;">
+          <h3 class="h5 fw-bold text-dark pb-2 border-bottom mb-3">
+            <i class="fa-solid fa-circle-info text-primary me-2"></i> Quick Facts
+          </h3>
+
+          <div class="fact-item">
+            <div class="fact-icon"><i class="fa-solid fa-calendar-check"></i></div>
+            <div>
+              <div class="fact-label">Best Time To Visit</div>
+              <div class="fact-value" id="fact-best-time">October to March</div>
+            </div>
+          </div>
+
+          <div class="fact-item">
+            <div class="fact-icon"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+            <div>
+              <div class="fact-label">Estimated Budget</div>
+              <div class="fact-value text-primary" id="fact-budget">₹3,000 / person</div>
+            </div>
+          </div>
+
+          <div class="fact-item">
+            <div class="fact-icon"><i class="fa-regular fa-clock"></i></div>
+            <div>
+              <div class="fact-label">Ideal Tour Duration</div>
+              <div class="fact-value" id="fact-duration">2 Days / 1 Night</div>
+            </div>
+          </div>
+
+          <div class="fact-item">
+            <div class="fact-icon"><i class="fa-solid fa-layer-group"></i></div>
+            <div>
+              <div class="fact-label">Category / Type</div>
+              <div class="fact-value" id="fact-category">Historical Fort</div>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="mt-4 d-grid gap-2">
+            <a href="plan-trip.html" id="plan-this-trip-btn" class="btn btn-primary-custom btn-lg">
+              <i class="fa-solid fa-wand-magic-sparkles me-2"></i> Plan a Trip Here
+            </a>
+            <a href="travel-agents.html" class="btn btn-outline-secondary">
+              <i class="fa-solid fa-user-tie me-2"></i> Find Local Tour Agents
+            </a>
+          </div>
+
+          <!-- Backend Architecture Note -->
+          <div class="mt-4 p-2 bg-light rounded text-muted" style="font-size: 0.78rem;">
+            <i class="fa-solid fa-code text-primary me-1"></i> Spring Boot REST endpoint mapping: <code>GET /api/destinations/{id}</code>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Nearby Destinations Section -->
+    <section class="mt-5 pt-4 border-top">
+      <div class="section-title-wrap text-start mb-4">
+        <span class="section-tag">Extend Your Tour</span>
+        <h2 class="section-main-title">Nearby Places To Explore</h2>
+        <p class="section-sub ms-0">Combine your trip with these famous nearby locations in Maharashtra.</p>
+      </div>
+
+      <div class="row" id="nearby-destinations-grid">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer-custom">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <span class="brand-badge"><i class="fa-solid fa-mountain-sun"></i></span>
+            <span class="h5 mb-0 text-white fw-bold">Maharashtra Explorer</span>
+          </div>
+          <p class="small text-muted mb-3">
+            Your intelligent personal travel companion for exploring Maharashtra.
+          </p>
+        </div>
+
+        <div class="col-lg-2 col-md-6 col-6">
+          <h4 class="footer-title">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="destinations.html">All Destinations</a></li>
+            <li><a href="plan-trip.html">AI Trip Planner</a></li>
+            <li><a href="travel-agents.html">Travel Agents</a></li>
+            <li><a href="login.html">Member Login</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6 col-6">
+          <h4 class="footer-title">Categories</h4>
+          <ul class="footer-links">
+            <li><a href="destinations.html?category=Forts">Historical Forts</a></li>
+            <li><a href="destinations.html?category=Beaches">Konkan Beaches</a></li>
+            <li><a href="destinations.html?category=Hill%20Stations">Hill Stations</a></li>
+            <li><a href="destinations.html?category=Caves">Ancient Caves</a></li>
+            <li><a href="destinations.html?category=Wildlife">Tiger Reserves</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <h4 class="footer-title">Travel Updates</h4>
+          <form id="newsletter-form" class="d-flex gap-2">
+            <input type="email" id="newsletter-email" class="form-control form-control-sm" placeholder="Your email address" required />
+            <button type="submit" class="btn btn-sm btn-primary-custom">Join</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="mb-0">© 2026 Maharashtra Explorer. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Application JS Files -->
+  <script src="js/api.js"></script>
+  <script src="js/destinations.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- Page Dynamic Loader Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Read ID from URL query: e.g. destination-details.html?id=1
+      const urlParams = new URLSearchParams(window.location.search);
+      const destId = Number(urlParams.get("id")) || 1;
+
+      // Find destination in mock dataset (or future getDestinationById API)
+      const destination = window.DESTINATIONS_DATA.find(d => d.id === destId) || window.DESTINATIONS_DATA[0];
+
+      if (!destination) return;
+
+      // Update Page Title
+      document.title = `${destination.name} – Maharashtra Explorer Details`;
+
+      // Update Breadcrumb & Header
+      document.getElementById("breadcrumb-current").textContent = destination.name;
+      document.getElementById("detail-category").textContent = destination.category;
+      document.getElementById("detail-rating").innerHTML = `<i class="fa-solid fa-star text-warning me-1"></i> ${destination.rating} / 5.0`;
+      document.getElementById("detail-region").innerHTML = `<i class="fa-solid fa-map-location-dot me-1"></i> ${destination.region}`;
+      document.getElementById("detail-name").textContent = destination.name;
+      document.getElementById("detail-location").innerHTML = `<i class="fa-solid fa-location-dot text-danger me-1"></i> ${destination.location}`;
+      
+      // Image
+      const imgEl = document.getElementById("detail-image");
+      imgEl.src = destination.image;
+      imgEl.alt = destination.name;
+
+      // Description & Tags
+      document.getElementById("detail-description").textContent = destination.description;
+      const tagsContainer = document.getElementById("detail-tags-container");
+      if (destination.tags) {
+        tagsContainer.innerHTML = destination.tags.map(tag => `<span class="feature-pill"><i class="fa-solid fa-tag me-1 text-primary"></i> ${tag}</span>`).join("");
+      }
+
+      // Attractions
+      const attractionsList = document.getElementById("detail-attractions-list");
+      if (destination.popularAttractions) {
+        attractionsList.innerHTML = destination.popularAttractions.map(attr => `
+          <div class="col-md-6">
+            <div class="p-2 border rounded bg-light d-flex align-items-center gap-2">
+              <i class="fa-solid fa-circle-check text-success"></i>
+              <span class="small fw-semibold text-dark">${attr}</span>
+            </div>
+          </div>
+        `).join("");
+      }
+
+      // Things to Do
+      const thingsToDoList = document.getElementById("detail-things-to-do");
+      if (destination.thingsToDo) {
+        thingsToDoList.innerHTML = destination.thingsToDo.map(item => `
+          <li class="py-2 border-bottom d-flex align-items-start gap-2">
+            <i class="fa-solid fa-person-walking text-primary mt-1"></i>
+            <span class="small text-secondary">${item}</span>
+          </li>
+        `).join("");
+      }
+
+      // Travel Tips
+      const tipsContainer = document.getElementById("detail-travel-tips");
+      if (destination.travelTips) {
+        tipsContainer.innerHTML = `
+          <ul class="mb-0 ps-3 small text-dark">
+            ${destination.travelTips.map(tip => `<li>${tip}</li>`).join("")}
+          </ul>
+        `;
+      }
+
+      // Quick Facts
+      document.getElementById("fact-best-time").textContent = destination.bestTime;
+      document.getElementById("fact-budget").textContent = `₹${destination.budget.toLocaleString()} / person`;
+      document.getElementById("fact-duration").textContent = `${destination.duration} Day${destination.duration > 1 ? 's' : ''} Tour`;
+      document.getElementById("fact-category").textContent = destination.category;
+
+      // CTA Link
+      const planBtn = document.getElementById("plan-this-trip-btn");
+      if (planBtn) {
+        planBtn.href = `plan-trip.html?destination=${destination.id}`;
+      }
+
+      // Nearby Destinations Grid
+      const nearbyGrid = document.getElementById("nearby-destinations-grid");
+      if (nearbyGrid) {
+        // Pick other destinations in same category or nearby
+        const otherDestinations = window.DESTINATIONS_DATA
+          .filter(d => d.id !== destination.id)
+          .slice(0, 3);
+
+        nearbyGrid.innerHTML = otherDestinations.map(d => createDestinationCardHTML(d)).join("");
+      }
+    });
+  </script>
+</body>
+</html>

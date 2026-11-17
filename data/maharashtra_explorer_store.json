@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "id": 101,
+      "fullName": "Rahul Patil",
+      "email": "demo.traveler@example.com",
+      "passwordHash": "$2b$10$ZTCkPlpbWjrMN1q4pUazVuF6g58p1XisLeiXwscd1.kXEZ8PXP1CC",
+      "phone": "+91 98220 12345",
+      "role": "ROLE_USER",
+      "tier": "Sahyadri Voyager",
+      "homeCity": "Pune, Maharashtra",
+      "favoriteDestinationIds": [
+        1,
+        5,
+        3
+      ],
+      "inquiries": [],
+      "createdAt": "2026-01-15T10:30:00.000Z"
+    }
+  ],
+  "trips": []
+}

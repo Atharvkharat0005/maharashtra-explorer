@@ -1,0 +1,6 @@
+{
+  "name": "Maharashtra Explorer",
+  "description": "Intelligent AI-Powered Personal Travel Assistant and Tourism Platform with Travel Agent Integration for Maharashtra, India.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
