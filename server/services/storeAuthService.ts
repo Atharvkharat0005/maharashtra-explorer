@@ -4,6 +4,15 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { NextFunction, Request, Response } from 'express';
 import { SavedTripRecord } from '../types.js';
+import {
+  getSupabaseUserByEmail,
+  getSupabaseUserById,
+  createSupabaseUser,
+  updateSupabaseUserProfile,
+  getSupabaseTripsForUser,
+  upsertSupabaseTrip,
+  deleteSupabaseTrip
+} from './supabaseService.js';
 
 const DATA_DIR = path.resolve(process.cwd(), 'data');
 const STORE_FILE = path.join(DATA_DIR, 'maharashtra_explorer_store.json');
@@ -175,12 +184,22 @@ export function requireAuth(req: AuthedRequest, res: Response, next: NextFunctio
   }
 }
 
-export function registerUser(payload: { fullName: string; email: string; password: string; phone?: string; homeCity?: string }) {
+export async function registerUser(payload: { fullName: string; email: string; password: string; phone?: string; homeCity?: string }) {
   const store = readStore();
   const emailNorm = payload.email.trim().toLowerCase();
+
+  // Try Supabase duplicate check
+  try {
+    const sbUser = await getSupabaseUserByEmail(emailNorm);
+    if (sbUser) throw new Error('EMAIL_EXISTS');
+  } catch (err: any) {
+    if (err.message === 'EMAIL_EXISTS') throw err;
+  }
+
   if (store.users.some((u) => u.email.toLowerCase() === emailNorm)) {
     throw new Error('EMAIL_EXISTS');
   }
+
   const newUser: StoredUser = {
     id: Math.max(100, ...store.users.map((u) => u.id)) + 1,
     fullName: payload.fullName.trim(),
@@ -194,37 +213,70 @@ export function registerUser(payload: { fullName: string; email: string; passwor
     inquiries: [],
     createdAt: new Date().toISOString()
   };
+
+  // Sync with Supabase cloud
+  try {
+    await createSupabaseUser(newUser);
+  } catch (err) {
+    console.warn('[Supabase Sync] Could not write user to Supabase:', err);
+  }
+
   store.users.push(newUser);
   writeStore(store);
   return { token: signJwtForUser(newUser), user: sanitizeUser(newUser) };
 }
 
-export function loginUser(email: string, password: string) {
-  const store = readStore();
+export async function loginUser(email: string, password: string) {
   const emailNorm = email.trim().toLowerCase();
+
+  // Try Supabase first
+  try {
+    const sbUser = await getSupabaseUserByEmail(emailNorm);
+    if (sbUser) {
+      if (!bcrypt.compareSync(password, sbUser.passwordHash)) {
+        throw new Error('INVALID_CREDENTIALS');
+      }
+      return { token: signJwtForUser(sbUser), user: sanitizeUser(sbUser) };
+    }
+  } catch (err: any) {
+    if (err.message === 'INVALID_CREDENTIALS') throw err;
+  }
+
+  // Fallback to local store
+  const store = readStore();
   const user = store.users.find((u) => u.email.toLowerCase() === emailNorm);
   if (!user) throw new Error('USER_NOT_FOUND');
   if (!bcrypt.compareSync(password, user.passwordHash)) throw new Error('INVALID_CREDENTIALS');
   return { token: signJwtForUser(user), user: sanitizeUser(user) };
 }
 
-export function getUserProfile(userId: number) {
+export async function getUserProfile(userId: number) {
+  try {
+    const sbUser = await getSupabaseUserById(userId);
+    if (sbUser) return sanitizeUser(sbUser);
+  } catch {}
+
   const store = readStore();
   const user = store.users.find((u) => u.id === userId);
   if (!user) return null;
   return sanitizeUser(user);
 }
 
-export function updateUserTrustedContact(userId: number, contact: { name: string; phone: string }) {
+export async function updateUserTrustedContact(userId: number, contact: { name: string; phone: string }) {
   const store = readStore();
   const user = store.users.find((u) => u.id === userId);
   if (!user) return null;
   user.trustedEmergencyContact = { name: contact.name.trim(), phone: contact.phone.trim() };
   writeStore(store);
+
+  try {
+    await updateSupabaseUserProfile(userId, { trustedEmergencyContact: user.trustedEmergencyContact });
+  } catch {}
+
   return sanitizeUser(user);
 }
 
-export function toggleUserFavorite(userId: number, destinationId: number) {
+export async function toggleUserFavorite(userId: number, destinationId: number) {
   const store = readStore();
   const user = store.users.find((u) => u.id === userId);
   if (!user) return null;
@@ -233,6 +285,11 @@ export function toggleUserFavorite(userId: number, destinationId: number) {
     ? user.favoriteDestinationIds.filter((id) => id !== destinationId)
     : [...user.favoriteDestinationIds, destinationId];
   writeStore(store);
+
+  try {
+    await updateSupabaseUserProfile(userId, { favoriteDestinationIds: user.favoriteDestinationIds });
+  } catch {}
+
   return user.favoriteDestinationIds;
 }
 
@@ -258,7 +315,14 @@ export function addUserInquiry(userId: number | null, data: { agentName: string;
   return inquiry;
 }
 
-export function getUserTrips(userId: number): SavedTripRecord[] {
+export async function getUserTrips(userId: number): Promise<SavedTripRecord[]> {
+  try {
+    const sbTrips = await getSupabaseTripsForUser(userId);
+    if (sbTrips && sbTrips.length > 0) {
+      return sbTrips;
+    }
+  } catch {}
+
   const store = readStore();
   return store.trips.filter((t) => t.userId === userId).sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
 }
@@ -270,10 +334,10 @@ export function getTripByIdForOwner(tripId: string, userId: number): SavedTripRe
   return trip;
 }
 
-export function createSavedTrip(
+export async function createSavedTrip(
   userId: number,
   payload: Omit<SavedTripRecord, 'id' | 'userId' | 'createdAt' | 'updatedAt'>
-): SavedTripRecord {
+): Promise<SavedTripRecord> {
   const store = readStore();
   const now = new Date().toISOString();
   const newTrip: SavedTripRecord = {
@@ -284,12 +348,19 @@ export function createSavedTrip(
     createdAt: now,
     updatedAt: now
   };
+
+  try {
+    await upsertSupabaseTrip(newTrip);
+  } catch (err) {
+    console.warn('[Supabase Sync] Could not write trip to Supabase:', err);
+  }
+
   store.trips.unshift(newTrip);
   writeStore(store);
   return newTrip;
 }
 
-export function updateSavedTrip(tripId: string, userId: number, patch: Partial<SavedTripRecord>): SavedTripRecord | null {
+export async function updateSavedTrip(tripId: string, userId: number, patch: Partial<SavedTripRecord>): Promise<SavedTripRecord | null> {
   const store = readStore();
   const idx = store.trips.findIndex((t) => t.id === tripId);
   if (idx === -1 || store.trips[idx].userId !== userId) return null;
@@ -300,16 +371,26 @@ export function updateSavedTrip(tripId: string, userId: number, patch: Partial<S
     userId: store.trips[idx].userId,
     updatedAt: new Date().toISOString()
   };
+
+  try {
+    await upsertSupabaseTrip(store.trips[idx]);
+  } catch {}
+
   writeStore(store);
   return store.trips[idx];
 }
 
-export function deleteSavedTrip(tripId: string, userId: number): boolean {
+export async function deleteSavedTrip(tripId: string, userId: number): Promise<boolean> {
   const store = readStore();
   const trip = store.trips.find((t) => t.id === tripId);
   if (!trip || trip.userId !== userId) return false;
   store.trips = store.trips.filter((t) => t.id !== tripId);
   writeStore(store);
+
+  try {
+    await deleteSupabaseTrip(tripId, userId);
+  } catch {}
+
   return true;
 }
 

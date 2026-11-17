@@ -45,6 +45,7 @@ import {
   updateUserTrustedContact
 } from './server/services/storeAuthService.js';
 import { fetchWikimediaImagesForTitle } from './server/services/wikimediaService.js';
+import { testSupabaseConnection } from './server/services/supabaseService.js';
 import { TripPlanInput } from './server/types.js';
 
 const PORT = Number(process.env.PORT || 3000);
@@ -95,8 +96,9 @@ async function createApp() {
   });
 
   // Health & architecture metadata (no secrets exposed)
-  app.get('/api/health', (_req, res) => {
+  app.get('/api/health', async (_req, res) => {
     const groqKey = process.env.GROQ_API_KEY || process.env.GROK_API_KEY;
+    const supabaseReady = await testSupabaseConnection();
     res.json({
       success: true,
       service: 'Maharashtra Explorer & MAHATRIP AI Server',
@@ -104,7 +106,8 @@ async function createApp() {
       attractionsCount: MAHARASHTRA_ATTRACTIONS.length,
       springBootBridgeConfigured: Boolean(SPRING_BOOT_API_URL),
       groqConfigured: Boolean(groqKey && groqKey !== 'MY_GROQ_API_KEY'),
-      aiProvider: groqKey ? 'Groq / Grok' : (process.env.GEMINI_API_KEY ? 'Gemini' : 'Deterministic / Local')
+      aiProvider: groqKey ? 'Groq / Grok' : (process.env.GEMINI_API_KEY ? 'Gemini' : 'Deterministic / Local'),
+      database: supabaseReady ? 'Supabase PostgreSQL (Connected)' : 'Local JSON Fallback'
     });
   });
 
@@ -569,7 +572,7 @@ async function createApp() {
   });
 
   // ==================== AUTH & USER PROFILE ====================
-  app.post('/api/auth/register', rateLimit(10, 60_000), (req, res) => {
+  app.post('/api/auth/register', rateLimit(10, 60_000), async (req, res) => {
     try {
       const { fullName, email, password, phone, homeCity } = req.body || {};
       if (!fullName || !email || !password || String(password).length < 6) {
@@ -578,7 +581,7 @@ async function createApp() {
           message: 'Full name, valid email, and password (min 6 characters) are required.'
         });
       }
-      const result = registerUser({ fullName, email, password, phone, homeCity });
+      const result = await registerUser({ fullName, email, password, phone, homeCity });
       return res.status(201).json({ success: true, message: 'Account created successfully.', data: result });
     } catch (err: any) {
       if (err.message === 'EMAIL_EXISTS') {
@@ -588,13 +591,13 @@ async function createApp() {
     }
   });
 
-  app.post('/api/auth/login', rateLimit(15, 60_000), (req, res) => {
+  app.post('/api/auth/login', rateLimit(15, 60_000), async (req, res) => {
     try {
       const { email, password } = req.body || {};
       if (!email || !password) {
         return res.status(400).json({ success: false, message: 'Email and password are required.' });
       }
-      const result = loginUser(email, password);
+      const result = await loginUser(email, password);
       return res.json({ success: true, message: 'Signed in successfully.', data: result });
     } catch (err: any) {
       if (err.message === 'USER_NOT_FOUND' || err.message === 'INVALID_CREDENTIALS') {
@@ -604,31 +607,31 @@ async function createApp() {
     }
   });
 
-  app.get('/api/user/profile', requireAuth, (req: AuthedRequest, res) => {
-    const profile = getUserProfile(req.authUser!.id);
+  app.get('/api/user/profile', requireAuth, async (req: AuthedRequest, res) => {
+    const profile = await getUserProfile(req.authUser!.id);
     if (!profile) return res.status(404).json({ success: false, message: 'User not found.' });
     return res.json({ success: true, data: profile });
   });
 
-  app.post('/api/user/favorites/:destinationId', requireAuth, (req: AuthedRequest, res) => {
+  app.post('/api/user/favorites/:destinationId', requireAuth, async (req: AuthedRequest, res) => {
     const destId = Number(req.params.destinationId);
-    const favs = toggleUserFavorite(req.authUser!.id, destId);
+    const favs = await toggleUserFavorite(req.authUser!.id, destId);
     if (!favs) return res.status(404).json({ success: false, message: 'User not found.' });
     return res.json({ success: true, data: favs });
   });
 
-  app.put('/api/user/trusted-contact', requireAuth, (req: AuthedRequest, res) => {
+  app.put('/api/user/trusted-contact', requireAuth, async (req: AuthedRequest, res) => {
     const { name, phone } = req.body || {};
     if (!name || !phone) {
       return res.status(400).json({ success: false, message: 'Trusted contact name and phone are required.' });
     }
-    const updated = updateUserTrustedContact(req.authUser!.id, { name, phone });
+    const updated = await updateUserTrustedContact(req.authUser!.id, { name, phone });
     return res.json({ success: true, data: updated });
   });
 
   // ==================== SAVED TRIPS (OWNERSHIP ENFORCED) ====================
-  app.get('/api/trips', requireAuth, (req: AuthedRequest, res) => {
-    const trips = getUserTrips(req.authUser!.id);
+  app.get('/api/trips', requireAuth, async (req: AuthedRequest, res) => {
+    const trips = await getUserTrips(req.authUser!.id);
     res.json({ success: true, count: trips.length, data: trips });
   });
 
@@ -638,12 +641,12 @@ async function createApp() {
     return res.json({ success: true, data: trip });
   });
 
-  app.post('/api/trips', requireAuth, (req: AuthedRequest, res) => {
+  app.post('/api/trips', requireAuth, async (req: AuthedRequest, res) => {
     const body = req.body || {};
     if (!body.title || !body.itinerary) {
       return res.status(400).json({ success: false, message: 'Trip title and itinerary payload are required.' });
     }
-    const created = createSavedTrip(req.authUser!.id, {
+    const created = await createSavedTrip(req.authUser!.id, {
       title: body.title,
       status: body.status || 'upcoming',
       startingLocation: body.startingLocation || 'Maharashtra',
@@ -659,14 +662,14 @@ async function createApp() {
     return res.status(201).json({ success: true, data: created });
   });
 
-  app.put('/api/trips/:id', requireAuth, (req: AuthedRequest, res) => {
-    const updated = updateSavedTrip(req.params.id, req.authUser!.id, req.body || {});
+  app.put('/api/trips/:id', requireAuth, async (req: AuthedRequest, res) => {
+    const updated = await updateSavedTrip(req.params.id, req.authUser!.id, req.body || {});
     if (!updated) return res.status(404).json({ success: false, message: 'Trip not found or access denied.' });
     return res.json({ success: true, data: updated });
   });
 
-  app.delete('/api/trips/:id', requireAuth, (req: AuthedRequest, res) => {
-    const deleted = deleteSavedTrip(req.params.id, req.authUser!.id);
+  app.delete('/api/trips/:id', requireAuth, async (req: AuthedRequest, res) => {
+    const deleted = await deleteSavedTrip(req.params.id, req.authUser!.id);
     if (!deleted) return res.status(404).json({ success: false, message: 'Trip not found or access denied.' });
     return res.json({ success: true, message: 'Trip deleted.' });
   });
