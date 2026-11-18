@@ -112,7 +112,7 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
     startingLocation: 'Pune',
     destinationPreference: preselectedDestination
       ? preselectedDestination.name
-      : preselectedDistrictName || 'Lonavala',
+      : preselectedDistrictName || '',
     startDate: defaultStart,
     returnDate: defaultStart,
     days: 1,
@@ -1029,43 +1029,31 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
               )}
             </div>
 
-            {/* Destination Selection with District Filter */}
+            {/* Destination Selection */}
             <div>
-              <div className="flex items-center justify-between mb-1">
-                <label className="text-xs font-bold text-stone-200">
-                  Destination (or let AI choose)
-                </label>
-                <div className="flex items-center gap-1 text-[11px] text-stone-400">
-                  <span>{t('planner.filterByDistrict', 'Filter by district')}:</span>
-                  <select
-                    value={selectedDestDistrictFilter}
-                    onChange={(e) => setSelectedDestDistrictFilter(e.target.value)}
-                    className="bg-[#110d0a] border border-white/15 rounded px-1.5 py-0.5 text-[11px] text-amber-300 focus:outline-none cursor-pointer"
+              <label className="text-xs font-bold text-stone-200 mb-1.5 flex items-center gap-1.5">
+                <Compass className="w-3.5 h-3.5 text-orange-400" />
+                <span>{t('planner.destination', 'Destination')}</span>
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  value={form.destinationPreference}
+                  onChange={(e) => setForm({ ...form, destinationPreference: e.target.value })}
+                  placeholder="e.g. Mahabaleshwar, Alibaug, Tadoba (or leave blank to let AI choose)..."
+                  className="w-full pl-3.5 pr-8 py-2.5 rounded-xl bg-[#110d0a] border border-white/10 text-sm text-white placeholder:text-stone-500/60 focus:outline-none focus:border-orange-500 transition"
+                />
+                {form.destinationPreference && (
+                  <button
+                    type="button"
+                    onClick={() => setForm({ ...form, destinationPreference: '' })}
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-stone-400 hover:text-white p-1 cursor-pointer"
+                    title="Clear destination"
                   >
-                    <option value="All">{t('planner.allMaharashtra', 'All Maharashtra')}</option>
-                    {districtsList.map((d) => (
-                      <option key={d.id} value={d.name}>
-                        {d.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                )}
               </div>
-              <input
-                list="mh-dest-list"
-                value={form.destinationPreference}
-                onChange={(e) => setForm({ ...form, destinationPreference: e.target.value })}
-                placeholder="Lonavala, AI_RECOMMEND, Alibaug, Mahabaleshwar..."
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[#110d0a] border border-white/15 text-sm text-white"
-              />
-              <datalist id="mh-dest-list">
-                <option value="AI_RECOMMEND">Let MAHATRIP AI Recommend Within Budget</option>
-                {filteredDestinationsForList.map((d) => (
-                  <option key={d.id} value={d.name}>
-                    {d.name} ({d.districtName} · {d.category})
-                  </option>
-                ))}
-              </datalist>
             </div>
           </div>
 
