@@ -168,7 +168,9 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
   const [startLocationInput, setStartLocationInput] = useState<string>(form.startingLocation || 'Pune');
   const [showLocationSuggestions, setShowLocationSuggestions] = useState<boolean>(false);
   const [selectedDestDistrictFilter, setSelectedDestDistrictFilter] = useState<string>('All');
+  const [showDestSuggestions, setShowDestSuggestions] = useState(false);
   const locationDropdownRef = useRef<HTMLDivElement>(null);
+  const destDropdownRef = useRef<HTMLDivElement>(null);
 
   const fetchDistricts = async () => {
     setFetchingDistricts(true);
@@ -208,11 +210,14 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
     setStartLocationInput(form.startingLocation);
   }, [form.startingLocation, districtsList]);
 
-  // Click outside to close location suggestions
+  // Click outside to close location & destination suggestions
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (locationDropdownRef.current && !locationDropdownRef.current.contains(e.target as Node)) {
         setShowLocationSuggestions(false);
+      }
+      if (destDropdownRef.current && !destDropdownRef.current.contains(e.target as Node)) {
+        setShowDestSuggestions(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -326,6 +331,27 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
       startingLocation: value
     }));
     setShowLocationSuggestions(true);
+  };
+
+  const filteredDestSuggestions = useMemo(() => {
+    const q = (form.destinationPreference || '').trim().toLowerCase();
+    if (!q) {
+      return destinations.slice(0, 12);
+    }
+    return destinations
+      .filter(
+        (d) =>
+          d.name.toLowerCase().includes(q) ||
+          d.districtName.toLowerCase().includes(q) ||
+          d.category.toLowerCase().includes(q) ||
+          (d.taluka && d.taluka.toLowerCase().includes(q))
+      )
+      .slice(0, 15);
+  }, [destinations, form.destinationPreference]);
+
+  const handleSelectDestination = (destName: string) => {
+    setForm((prev) => ({ ...prev, destinationPreference: destName }));
+    setShowDestSuggestions(false);
   };
 
   const filteredDestinationsForList = useMemo(() => {
@@ -1029,31 +1055,111 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
               )}
             </div>
 
-            {/* Destination Selection */}
-            <div>
-              <label className="text-xs font-bold text-stone-200 mb-1.5 flex items-center gap-1.5">
-                <Compass className="w-3.5 h-3.5 text-orange-400" />
-                <span>{t('planner.destination', 'Destination')}</span>
-              </label>
+            {/* Destination Selection with Dropdown */}
+            <div className="relative" ref={destDropdownRef}>
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="text-xs font-bold text-stone-200 flex items-center gap-1.5">
+                  <Compass className="w-3.5 h-3.5 text-orange-400" />
+                  <span>{t('planner.destination', 'Destination')}</span>
+                </label>
+                {form.destinationPreference && (
+                  <span className="text-[11px] text-amber-300 font-medium truncate max-w-[200px]">
+                    📍 {form.destinationPreference}
+                  </span>
+                )}
+              </div>
+
               <div className="relative">
                 <input
                   type="text"
                   value={form.destinationPreference}
-                  onChange={(e) => setForm({ ...form, destinationPreference: e.target.value })}
+                  onChange={(e) => {
+                    setForm({ ...form, destinationPreference: e.target.value });
+                    setShowDestSuggestions(true);
+                  }}
+                  onFocus={() => setShowDestSuggestions(true)}
                   placeholder="e.g. Mahabaleshwar, Alibaug, Tadoba (or leave blank to let AI choose)..."
                   className="w-full pl-3.5 pr-8 py-2.5 rounded-xl bg-[#110d0a] border border-white/10 text-sm text-white placeholder:text-stone-500/60 focus:outline-none focus:border-orange-500 transition"
                 />
-                {form.destinationPreference && (
+                {form.destinationPreference ? (
                   <button
                     type="button"
-                    onClick={() => setForm({ ...form, destinationPreference: '' })}
+                    onClick={() => {
+                      setForm({ ...form, destinationPreference: '' });
+                      setShowDestSuggestions(true);
+                    }}
                     className="absolute right-2.5 top-1/2 -translate-y-1/2 text-stone-400 hover:text-white p-1 cursor-pointer"
                     title="Clear destination"
                   >
                     <X className="w-3.5 h-3.5" />
                   </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => setShowDestSuggestions(!showDestSuggestions)}
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-stone-400 hover:text-white p-1 cursor-pointer"
+                    title="Toggle destinations dropdown"
+                  >
+                    <ChevronDown className="w-4 h-4" />
+                  </button>
                 )}
               </div>
+
+              {/* Suggestions Dropdown for Destinations / Locations */}
+              {showDestSuggestions && (
+                <div className="absolute left-0 right-0 top-full mt-1.5 z-40 max-h-64 overflow-y-auto rounded-xl bg-[#18130f] border border-white/15 shadow-2xl p-1.5 space-y-1">
+                  <div className="px-2.5 py-1 text-[10px] uppercase font-bold text-stone-400 flex justify-between items-center border-b border-white/10">
+                    <span>
+                      {form.destinationPreference ? 'Matching Destinations' : 'Popular Maharashtra Destinations'}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setShowDestSuggestions(false)}
+                      className="text-stone-400 hover:text-white cursor-pointer"
+                    >
+                      ✕
+                    </button>
+                  </div>
+
+                  {/* Option: Let AI Choose */}
+                  <button
+                    type="button"
+                    onClick={() => handleSelectDestination('')}
+                    className="w-full px-2.5 py-2 rounded-lg text-left text-xs text-amber-300 hover:bg-orange-500/20 flex items-center justify-between transition cursor-pointer border border-dashed border-amber-500/30"
+                  >
+                    <span className="font-semibold flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                      Let AI Recommend Best Destination
+                    </span>
+                    <span className="text-[10px] text-stone-400">AI Choice</span>
+                  </button>
+
+                  {filteredDestSuggestions.length > 0 ? (
+                    filteredDestSuggestions.map((dest) => (
+                      <button
+                        key={dest.id}
+                        type="button"
+                        onClick={() => handleSelectDestination(dest.name)}
+                        className="w-full px-2.5 py-2 rounded-lg text-left text-xs text-stone-200 hover:bg-orange-500/20 hover:text-white flex items-center justify-between transition cursor-pointer"
+                      >
+                        <div className="truncate pr-2">
+                          <span className="font-semibold block truncate">{dest.name}</span>
+                          <span className="text-[10px] text-stone-400 truncate">
+                            {dest.districtName} District {dest.taluka ? `· ${dest.taluka}` : ''}
+                          </span>
+                        </div>
+                        <span className="text-[10px] text-amber-300 bg-white/5 px-2 py-0.5 rounded shrink-0 border border-white/10">
+                          {dest.category}
+                        </span>
+                      </button>
+                    ))
+                  ) : (
+                    <div className="p-2 text-center text-xs text-stone-400">
+                      No matching spot found. AI will custom plan for "{form.destinationPreference}".
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 
