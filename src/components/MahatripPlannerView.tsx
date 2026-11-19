@@ -312,7 +312,7 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
     const districtName = selectedStartDistrict?.name || '';
     const formatted =
       cleanName.toLowerCase() === districtName.toLowerCase() ||
-      cleanName.toLowerCase().includes(districtName.toLowerCase())
+        cleanName.toLowerCase().includes(districtName.toLowerCase())
         ? cleanName
         : `${cleanName}, ${districtName}`;
 
@@ -399,7 +399,7 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
       apiClient
         .calculateBudget(form)
         .then((res) => setLiveBudgetPreview(res?.data || null))
-        .catch(() => {});
+        .catch(() => { });
     }, 220);
     return () => clearTimeout(t);
   }, [
@@ -458,8 +458,8 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
             ? prev.bikeMileageKmPerL
             : 45
           : mode === 'Car' || mode === 'Self-Drive'
-          ? 15
-          : prev.bikeMileageKmPerL
+            ? 15
+            : prev.bikeMileageKmPerL
     }));
   };
 
@@ -603,7 +603,7 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
       onActiveItineraryChange(res.data);
       onToast(
         isOneDayMode
-          ? 'One-Day Same-Day Return itinerary generated!'
+          ? 'One-Day Trip itinerary generated!'
           : 'Complete Maharashtra group itinerary generated!',
         'success'
       );
@@ -917,22 +917,20 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
               <button
                 type="button"
                 onClick={() => switchTripType('one-day')}
-                className={`py-2 px-2 rounded-lg text-xs font-bold transition cursor-pointer ${
-                  isOneDayMode
-                    ? 'bg-orange-500 text-white'
-                    : 'text-stone-300 hover:text-white'
-                }`}
+                className={`py-2 px-2 rounded-lg text-xs font-bold transition cursor-pointer ${isOneDayMode
+                  ? 'bg-orange-500 text-white'
+                  : 'text-stone-300 hover:text-white'
+                  }`}
               >
-                One-Day (Same-Day Return)
+                One-Day Trip
               </button>
               <button
                 type="button"
                 onClick={() => switchTripType('multi-day')}
-                className={`py-2 px-2 rounded-lg text-xs font-bold transition cursor-pointer ${
-                  !isOneDayMode
-                    ? 'bg-orange-500 text-white'
-                    : 'text-stone-300 hover:text-white'
-                }`}
+                className={`py-2 px-2 rounded-lg text-xs font-bold transition cursor-pointer ${!isOneDayMode
+                  ? 'bg-orange-500 text-white'
+                  : 'text-stone-300 hover:text-white'
+                  }`}
               >
                 Multi-Day Trip
               </button>
@@ -947,6 +945,13 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
                   <MapPin className="w-3.5 h-3.5 text-orange-400" />
                   <span>{t('planner.startingLocation', 'Starting Location')}</span>
                 </label>
+                {form.startingLocation && (
+                  <span className="text-[11px] text-emerald-400 font-medium flex items-center gap-1 truncate max-w-[220px]" title={form.startingLocation}>
+                    <CheckCircle className="w-3 h-3 shrink-0" />
+                    <span className="text-stone-400 font-normal">{t('planner.from', 'From')}:</span>
+                    <strong className="text-emerald-300 truncate">{form.startingLocation}</strong>
+                  </span>
+                )}
               </div>
 
               {/* Compact 2-column input grid */}
@@ -1434,11 +1439,10 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
                     type="button"
                     key={item}
                     onClick={() => toggleInterest(item)}
-                    className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition cursor-pointer ${
-                      selected
-                        ? 'bg-orange-500 text-white'
-                        : 'bg-[#110d0a] text-stone-300 border border-white/10 hover:border-orange-500/40'
-                    }`}
+                    className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition cursor-pointer ${selected
+                      ? 'bg-orange-500 text-white'
+                      : 'bg-[#110d0a] text-stone-300 border border-white/10 hover:border-orange-500/40'
+                      }`}
                   >
                     {item}
                   </button>
@@ -1461,7 +1465,7 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
               ) : (
                 <>
                   <Sparkles className="w-4 h-4" />
-                  {isOneDayMode ? 'Plan One-Day Return Trip' : 'Generate Complete Trip Plan'}
+                  {isOneDayMode ? 'Plan One-Day Trip' : 'Generate Complete Trip Plan'}
                 </>
               )}
             </button>
@@ -1497,7 +1501,7 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
                 <h2 className="text-sm font-bold text-white flex items-center gap-2">
                   <Compass className="w-4 h-4 text-amber-400" />
                   Destinations Ranked for ₹{form.totalGroupBudget.toLocaleString('en-IN')} Group Budget (
-                  {isOneDayMode ? 'Same-Day Return' : `${form.days}-Day`})
+                  {isOneDayMode ? 'One-Day Trip' : `${form.days}-Day`})
                 </h2>
                 <button
                   type="button"
@@ -1517,9 +1521,8 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
                       <div className="flex items-start justify-between gap-2">
                         <p className="font-bold text-white">{rec.name}</p>
                         <span
-                          className={`font-bold tabular-nums shrink-0 ${
-                            rec.withinBudget ? 'text-emerald-400' : 'text-rose-400'
-                          }`}
+                          className={`font-bold tabular-nums shrink-0 ${rec.withinBudget ? 'text-emerald-400' : 'text-rose-400'
+                            }`}
                         >
                           Est. ₹{Number(rec.estimatedGroupCostInr).toLocaleString('en-IN')}
                         </span>
@@ -1531,9 +1534,8 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
                       <p className="text-[11px] text-stone-300 mt-1">{rec.suitabilitySummary}</p>
                       {isOneDayMode && (
                         <p
-                          className={`text-[11px] mt-1 font-semibold ${
-                            rec.practicalForOneDay ? 'text-emerald-300' : 'text-amber-300'
-                          }`}
+                          className={`text-[11px] mt-1 font-semibold ${rec.practicalForOneDay ? 'text-emerald-300' : 'text-amber-300'
+                            }`}
                         >
                           {rec.practicalForOneDay
                             ? `Practical 1-Day Window: ${rec.departureReturnWindow}`
@@ -1560,7 +1562,7 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
               <Compass className="w-10 h-10 text-orange-400 mx-auto" />
               <h3 className="text-lg font-bold text-white">Ready to Plan with MAHATRIP AI</h3>
               <p className="text-xs text-stone-300 max-w-md mx-auto leading-relaxed">
-                Select <strong className="text-white">One-Day (Same-Day Return)</strong> or{' '}
+                Select <strong className="text-white">One-Day Trip</strong> or{' '}
                 <strong className="text-white">Multi-Day</strong> on the left, enter your total group
                 budget, and click Plan to see the complete schedule, OSRM map route, petrol stops,
                 and transparent cost breakdown.
@@ -1695,11 +1697,10 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
                       key={tab.id}
                       type="button"
                       onClick={() => setResultTab(tab.id as any)}
-                      className={`flex-1 py-2.5 px-3 rounded-lg flex items-center justify-center gap-2 transition cursor-pointer ${
-                        resultTab === tab.id
-                          ? 'bg-orange-500 text-white shadow-sm'
-                          : 'text-stone-300 hover:text-white'
-                      }`}
+                      className={`flex-1 py-2.5 px-3 rounded-lg flex items-center justify-center gap-2 transition cursor-pointer ${resultTab === tab.id
+                        ? 'bg-orange-500 text-white shadow-sm'
+                        : 'text-stone-300 hover:text-white'
+                        }`}
                     >
                       <Icon className="w-3.5 h-3.5" />
                       <span className="hidden sm:inline">{tab.label}</span>
@@ -1747,11 +1748,10 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
                             <button
                               key={r.id}
                               onClick={() => setActiveRouteId(r.id)}
-                              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
-                                activeRouteId === r.id
-                                  ? 'bg-orange-500 text-white'
-                                  : 'bg-[#110d0a] text-stone-200 border border-white/10 hover:border-orange-500/40'
-                              }`}
+                              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${activeRouteId === r.id
+                                ? 'bg-orange-500 text-white'
+                                : 'bg-[#110d0a] text-stone-200 border border-white/10 hover:border-orange-500/40'
+                                }`}
                             >
                               {r.label}
                             </button>
@@ -1827,11 +1827,10 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
                               </button>
                               <button
                                 onClick={() => setOpenTweakDay(isTweakOpen ? null : day.dayNumber)}
-                                className={`px-3 py-1.5 rounded-lg border text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition ${
-                                  isTweakOpen
-                                    ? 'bg-amber-500/20 border-amber-500/40 text-amber-300'
-                                    : 'bg-white/5 hover:bg-white/10 border-white/10 text-stone-300'
-                                }`}
+                                className={`px-3 py-1.5 rounded-lg border text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition ${isTweakOpen
+                                  ? 'bg-amber-500/20 border-amber-500/40 text-amber-300'
+                                  : 'bg-white/5 hover:bg-white/10 border-white/10 text-stone-300'
+                                  }`}
                               >
                                 Tweak Note
                               </button>
@@ -1841,9 +1840,8 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
                                 className="px-3 py-1.5 rounded-lg bg-orange-500/20 hover:bg-orange-500/30 border border-orange-500/35 text-amber-300 text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition"
                               >
                                 <RefreshCw
-                                  className={`w-3.5 h-3.5 ${
-                                    regeneratingDay === day.dayNumber ? 'animate-spin' : ''
-                                  }`}
+                                  className={`w-3.5 h-3.5 ${regeneratingDay === day.dayNumber ? 'animate-spin' : ''
+                                    }`}
                                 />
                                 Regenerate
                               </button>
@@ -1998,11 +1996,10 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
                           return (
                             <div
                               key={gem.id}
-                              className={`rounded-xl border p-3 flex gap-3 ${
-                                excluded
-                                  ? 'bg-[#110d0a]/50 border-white/5 opacity-60'
-                                  : 'bg-[#110d0a] border-white/15'
-                              }`}
+                              className={`rounded-xl border p-3 flex gap-3 ${excluded
+                                ? 'bg-[#110d0a]/50 border-white/5 opacity-60'
+                                : 'bg-[#110d0a] border-white/15'
+                                }`}
                             >
                               <div className="w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-black">
                                 <VerifiedWikiImage
@@ -2048,15 +2045,14 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
                         <h3 className="text-base font-black text-white flex items-center gap-2">
                           <Wallet className="w-4 h-4 text-orange-400" />
                           Group Budget Breakdown ({budget.groupSize} Travelers ·{' '}
-                          {budget.tripType === 'one-day' ? 'Same-Day Return' : `${budget.days} Days`})
+                          {budget.tripType === 'one-day' ? 'One-Day Trip' : `${budget.days} Days`})
                         </h3>
                         <p className="text-xs text-stone-400 mt-0.5">{budget.pricingDisclaimer}</p>
                       </div>
                       <div className="text-right tabular-nums">
                         <span
-                          className={`text-2xl font-black ${
-                            budget.isOverBudget ? 'text-rose-400' : 'text-emerald-400'
-                          }`}
+                          className={`text-2xl font-black ${budget.isOverBudget ? 'text-rose-400' : 'text-emerald-400'
+                            }`}
                         >
                           ₹{budget.estimatedTotalCost.toLocaleString('en-IN')}
                         </span>
@@ -2192,11 +2188,10 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
                           return (
                             <div
                               key={opt.mode}
-                              className={`p-3.5 rounded-xl border space-y-2 ${
-                                isSelected
-                                  ? 'bg-orange-500/10 border-orange-500/50'
-                                  : 'bg-[#110d0a] border-white/10'
-                              }`}
+                              className={`p-3.5 rounded-xl border space-y-2 ${isSelected
+                                ? 'bg-orange-500/10 border-orange-500/50'
+                                : 'bg-[#110d0a] border-white/10'
+                                }`}
                             >
                               <div className="flex items-start justify-between gap-2">
                                 <div>
@@ -2224,11 +2219,10 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
                                   onClick={() =>
                                     setSelectedTransportMode(isSelected ? null : opt.mode)
                                   }
-                                  className={`px-3 py-1 rounded-lg text-[11px] font-semibold cursor-pointer ${
-                                    isSelected
-                                      ? 'bg-orange-500 text-white'
-                                      : 'bg-white/10 hover:bg-white/15 text-white'
-                                  }`}
+                                  className={`px-3 py-1 rounded-lg text-[11px] font-semibold cursor-pointer ${isSelected
+                                    ? 'bg-orange-500 text-white'
+                                    : 'bg-white/10 hover:bg-white/15 text-white'
+                                    }`}
                                 >
                                   {isSelected ? 'Selected' : 'Select'}
                                 </button>
@@ -2359,11 +2353,10 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
                           return (
                             <div
                               key={h.id}
-                              className={`p-3.5 rounded-xl border space-y-1.5 ${
-                                isChosen
-                                  ? 'bg-orange-500/10 border-orange-500/50'
-                                  : 'bg-[#110d0a] border-white/10'
-                              }`}
+                              className={`p-3.5 rounded-xl border space-y-1.5 ${isChosen
+                                ? 'bg-orange-500/10 border-orange-500/50'
+                                : 'bg-[#110d0a] border-white/10'
+                                }`}
                             >
                               <div className="flex justify-between gap-2">
                                 <p className="font-bold text-white">{h.name}</p>

@@ -43,11 +43,10 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
                 key={opt.code}
                 type="button"
                 onClick={() => setLanguage(opt.code)}
-                className={`py-2 px-2.5 rounded-lg text-xs font-semibold flex flex-col items-center justify-center transition cursor-pointer ${
-                  isSelected
-                    ? 'bg-gradient-to-r from-[#ff6b1a] to-[#ff8c38] text-white shadow'
-                    : 'bg-white/5 text-stone-300 hover:bg-white/10 hover:text-white'
-                }`}
+                className={`py-2 px-2.5 rounded-lg text-xs font-semibold flex flex-col items-center justify-center transition cursor-pointer ${isSelected
+                  ? 'bg-gradient-to-r from-[#ff6b1a] to-[#ff8c38] text-white shadow'
+                  : 'bg-white/5 text-stone-300 hover:bg-white/10 hover:text-white'
+                  }`}
               >
                 <span className="text-xs">{opt.nativeName}</span>
                 <span className="text-[10px] opacity-75">{opt.name}</span>
@@ -71,9 +70,8 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
         <Globe className="w-4 h-4 text-orange-400 shrink-0" />
         <span className="font-medium text-stone-200">{currentOption.nativeName}</span>
         <ChevronDown
-          className={`w-3.5 h-3.5 text-stone-400 transition-transform duration-200 ${
-            isOpen ? 'rotate-180 text-orange-400' : ''
-          }`}
+          className={`w-3.5 h-3.5 text-stone-400 transition-transform duration-200 ${isOpen ? 'rotate-180 text-orange-400' : ''
+            }`}
         />
       </button>
 
@@ -92,11 +90,10 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
                   setLanguage(opt.code);
                   setIsOpen(false);
                 }}
-                className={`w-full px-3 py-2 text-left text-xs sm:text-sm flex items-center justify-between transition cursor-pointer ${
-                  isSelected
-                    ? 'bg-orange-500/20 text-orange-400 font-semibold'
-                    : 'text-stone-300 hover:bg-white/5 hover:text-white'
-                }`}
+                className={`w-full px-3 py-2 text-left text-xs sm:text-sm flex items-center justify-between transition cursor-pointer ${isSelected
+                  ? 'bg-orange-500/20 text-orange-400 font-semibold'
+                  : 'text-stone-300 hover:bg-white/5 hover:text-white'
+                  }`}
               >
                 <div className="flex flex-col">
                   <span className="font-medium">{opt.nativeName}</span>
