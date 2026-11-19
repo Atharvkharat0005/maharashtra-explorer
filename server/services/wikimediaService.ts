@@ -78,8 +78,54 @@ const CURATED_LANDMARK_OVERRIDES: Record<string, ImageAttribution[]> = {
       originalUrl: 'https://commons.wikimedia.org/wiki/File:Panoramic_view_of_Lonar_crater_lake_from_the_rim.jpg',
       verified: true
     }
+  ],
+  'kaas plateau': [
+    {
+      url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/2/21/Kaas-7016.jpg/1280px-Kaas-7016.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      thumbnailUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/2/21/Kaas-7016.jpg/1280px-Kaas-7016.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      title: 'Kaas-7016.jpg',
+      source: 'Wikimedia Commons',
+      creator: 'Parabsachin',
+      license: 'CC BY-SA 4.0',
+      originalUrl: 'https://commons.wikimedia.org/wiki/File:Kaas-7016.jpg',
+      verified: true
+    },
+    {
+      url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/54/Kaas_world_Heritage.jpg/1280px-Kaas_world_Heritage.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      thumbnailUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/54/Kaas_world_Heritage.jpg/1280px-Kaas_world_Heritage.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      title: 'Kaas world Heritage.jpg',
+      source: 'Wikimedia Commons',
+      creator: 'Tanmay Haldar',
+      license: 'CC BY-SA 4.0',
+      originalUrl: 'https://commons.wikimedia.org/wiki/File:Kaas_world_Heritage.jpg',
+      verified: true
+    },
+    {
+      url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/Kaas_Pathar%2C_Satara%2C_Maharashtra%2C_India_%282018%29_2.jpg/1280px-Kaas_Pathar%2C_Satara%2C_Maharashtra%2C_India_%282018%29_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      thumbnailUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/Kaas_Pathar%2C_Satara%2C_Maharashtra%2C_India_%282018%29_2.jpg/1280px-Kaas_Pathar%2C_Satara%2C_Maharashtra%2C_India_%282018%29_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      title: 'Kaas Pathar, Satara, Maharashtra, India (2018) 2.jpg',
+      source: 'Wikimedia Commons',
+      creator: 'Koushik 7',
+      license: 'CC BY-SA 4.0',
+      originalUrl: 'https://commons.wikimedia.org/wiki/File:Kaas_Pathar,_Satara,_Maharashtra,_India_(2018)_2.jpg',
+      verified: true
+    },
+    {
+      url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/Kaas_pathar.jpg/1280px-Kaas_pathar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      thumbnailUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/Kaas_pathar.jpg/1280px-Kaas_pathar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      title: 'Kaas pathar.jpg',
+      source: 'Wikimedia Commons',
+      creator: 'Apoorva Karlekar',
+      license: 'CC BY-SA 4.0',
+      originalUrl: 'https://commons.wikimedia.org/wiki/File:Kaas_pathar.jpg',
+      verified: true
+    }
   ]
 };
+
+CURATED_LANDMARK_OVERRIDES['kaas pathar'] = CURATED_LANDMARK_OVERRIDES['kaas plateau'];
+CURATED_LANDMARK_OVERRIDES['kas plateau'] = CURATED_LANDMARK_OVERRIDES['kaas plateau'];
+CURATED_LANDMARK_OVERRIDES['kas plateau reserved forest'] = CURATED_LANDMARK_OVERRIDES['kaas plateau'];
 
 export async function fetchWikimediaImagesForTitle(wikiTitle: string, limit = 4): Promise<ImageAttribution[]> {
   if (!wikiTitle) return [];
