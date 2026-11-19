@@ -947,13 +947,6 @@ export const MahatripPlannerView: React.FC<MahatripPlannerViewProps> = ({
                   <MapPin className="w-3.5 h-3.5 text-orange-400" />
                   <span>{t('planner.startingLocation', 'Starting Location')}</span>
                 </label>
-                {form.startingLocation && (
-                  <span className="text-[11px] text-emerald-400 font-medium flex items-center gap-1 truncate max-w-[220px]" title={form.startingLocation}>
-                    <CheckCircle className="w-3 h-3 shrink-0" />
-                    <span className="text-stone-400 font-normal">{t('planner.from', 'From')}:</span>
-                    <strong className="text-emerald-300 truncate">{form.startingLocation}</strong>
-                  </span>
-                )}
               </div>
 
               {/* Compact 2-column input grid */}
