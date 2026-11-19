@@ -46,7 +46,7 @@ function stripHtml(html: string | undefined): string {
   return html.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
 }
 
-const CURATED_LANDMARK_OVERRIDES: Record<string, ImageAttribution[]> = {
+export const CURATED_LANDMARK_OVERRIDES: Record<string, ImageAttribution[]> = {
   'lonar lake': [
     {
       url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Lonar_Crater%2C_Panorama.jpg/1280px-Lonar_Crater%2C_Panorama.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
@@ -120,12 +120,226 @@ const CURATED_LANDMARK_OVERRIDES: Record<string, ImageAttribution[]> = {
       originalUrl: 'https://commons.wikimedia.org/wiki/File:Kaas_pathar.jpg',
       verified: true
     }
+  ],
+  'devkund waterfall': [
+    {
+      url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2c/Devkund_waterfalls.jpg/1280px-Devkund_waterfalls.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      thumbnailUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2c/Devkund_waterfalls.jpg/1280px-Devkund_waterfalls.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      title: 'Devkund waterfalls.jpg',
+      source: 'Wikimedia Commons',
+      creator: 'Kautuk1',
+      license: 'CC BY-SA 4.0',
+      originalUrl: 'https://commons.wikimedia.org/wiki/File:Devkund_waterfalls.jpg',
+      verified: true
+    },
+    {
+      url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/Maharashtra%2C_Devkund.jpg/1280px-Maharashtra%2C_Devkund.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      thumbnailUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/Maharashtra%2C_Devkund.jpg/1280px-Maharashtra%2C_Devkund.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      title: 'Maharashtra, Devkund.jpg',
+      source: 'Wikimedia Commons',
+      creator: 'Abhinav Varshney',
+      license: 'CC BY-SA 4.0',
+      originalUrl: 'https://commons.wikimedia.org/wiki/File:Maharashtra,_Devkund.jpg',
+      verified: true
+    },
+    {
+      url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/Devkund.jpg/1280px-Devkund.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      thumbnailUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/Devkund.jpg/1280px-Devkund.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      title: 'Devkund.jpg',
+      source: 'Wikimedia Commons',
+      creator: 'Devopam',
+      license: 'CC BY-SA 4.0',
+      originalUrl: 'https://commons.wikimedia.org/wiki/File:Devkund.jpg',
+      verified: true
+    }
+  ],
+  'velas, ratnagiri': [
+    {
+      url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/4/48/View_of_the_Arabian_Sea_from_Bankot_Fort.jpg/1280px-View_of_the_Arabian_Sea_from_Bankot_Fort.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      thumbnailUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/4/48/View_of_the_Arabian_Sea_from_Bankot_Fort.jpg/1280px-View_of_the_Arabian_Sea_from_Bankot_Fort.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      title: 'View of the Arabian Sea from Bankot Fort.jpg',
+      source: 'Wikimedia Commons',
+      creator: 'Mohsin Dadarkar',
+      license: 'CC BY-SA 4.0',
+      originalUrl: 'https://commons.wikimedia.org/wiki/File:View_of_the_Arabian_Sea_from_Bankot_Fort.jpg',
+      verified: true
+    },
+    {
+      url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b4/Bankot_Fort_Panorama.jpg/1280px-Bankot_Fort_Panorama.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      thumbnailUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b4/Bankot_Fort_Panorama.jpg/1280px-Bankot_Fort_Panorama.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      title: 'Bankot Fort Panorama.jpg',
+      source: 'Wikimedia Commons',
+      creator: 'Mohsin Dadarkar',
+      license: 'CC BY-SA 4.0',
+      originalUrl: 'https://commons.wikimedia.org/wiki/File:Bankot_Fort_Panorama.jpg',
+      verified: true
+    },
+    {
+      url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e1/Hatchlings_of_Olive_Ridley.jpg/1280px-Hatchlings_of_Olive_Ridley.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      thumbnailUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e1/Hatchlings_of_Olive_Ridley.jpg/1280px-Hatchlings_of_Olive_Ridley.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      title: 'Hatchlings of Olive Ridley.jpg',
+      source: 'Wikimedia Commons',
+      creator: 'Aliva Sahoo',
+      license: 'CC BY-SA 4.0',
+      originalUrl: 'https://commons.wikimedia.org/wiki/File:Hatchlings_of_Olive_Ridley.jpg',
+      verified: true
+    }
+  ],
+  'tamhini ghat': [
+    {
+      url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/8/87/View_from_Tamhini_Ghat_%2851294774394%29.jpg/1280px-View_from_Tamhini_Ghat_%2851294774394%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      thumbnailUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/8/87/View_from_Tamhini_Ghat_%2851294774394%29.jpg/1280px-View_from_Tamhini_Ghat_%2851294774394%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      title: 'View from Tamhini Ghat (51294774394).jpg',
+      source: 'Wikimedia Commons',
+      creator: 'Dinesh Valke',
+      license: 'CC BY-SA 2.0',
+      originalUrl: 'https://commons.wikimedia.org/wiki/File:View_from_Tamhini_Ghat_(51294774394).jpg',
+      verified: true
+    },
+    {
+      url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/b/ba/Tamhini_Ghat_%2851292773674%29.jpg/1280px-Tamhini_Ghat_%2851292773674%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      thumbnailUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/b/ba/Tamhini_Ghat_%2851292773674%29.jpg/1280px-Tamhini_Ghat_%2851292773674%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      title: 'Tamhini Ghat (51292773674).jpg',
+      source: 'Wikimedia Commons',
+      creator: 'Dinesh Valke',
+      license: 'CC BY-SA 2.0',
+      originalUrl: 'https://commons.wikimedia.org/wiki/File:Tamhini_Ghat_(51292773674).jpg',
+      verified: true
+    },
+    {
+      url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d3/Tamhini_Ghat_in_Rainy_season_20.JPG/1280px-Tamhini_Ghat_in_Rainy_season_20.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      thumbnailUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d3/Tamhini_Ghat_in_Rainy_season_20.JPG/1280px-Tamhini_Ghat_in_Rainy_season_20.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      title: 'Tamhini Ghat in Rainy season 20.JPG',
+      source: 'Wikimedia Commons',
+      creator: 'Abhijeet Safai',
+      license: 'CC BY-SA 3.0',
+      originalUrl: 'https://commons.wikimedia.org/wiki/File:Tamhini_Ghat_in_Rainy_season_20.JPG',
+      verified: true
+    }
+  ],
+  'malshej ghat': [
+    {
+      url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/56/Malshej_Ghat_%2851545521166%29.jpg/1280px-Malshej_Ghat_%2851545521166%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      thumbnailUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/56/Malshej_Ghat_%2851545521166%29.jpg/1280px-Malshej_Ghat_%2851545521166%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      title: 'Malshej Ghat (51545521166).jpg',
+      source: 'Wikimedia Commons',
+      creator: 'Dinesh Valke',
+      license: 'CC BY-SA 2.0',
+      originalUrl: 'https://commons.wikimedia.org/wiki/File:Malshej_Ghat_(51545521166).jpg',
+      verified: true
+    },
+    {
+      url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f4/Malshej_Ghat_from_the_top.jpg/1280px-Malshej_Ghat_from_the_top.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      thumbnailUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f4/Malshej_Ghat_from_the_top.jpg/1280px-Malshej_Ghat_from_the_top.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      title: 'Malshej Ghat from the top.jpg',
+      source: 'Wikimedia Commons',
+      creator: 'KartikMistry',
+      license: 'CC BY-SA 4.0',
+      originalUrl: 'https://commons.wikimedia.org/wiki/File:Malshej_Ghat_from_the_top.jpg',
+      verified: true
+    },
+    {
+      url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5d/NH222_Highway_through_Malshej_Ghat_Maharashtra_India.jpg/1280px-NH222_Highway_through_Malshej_Ghat_Maharashtra_India.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      thumbnailUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5d/NH222_Highway_through_Malshej_Ghat_Maharashtra_India.jpg/1280px-NH222_Highway_through_Malshej_Ghat_Maharashtra_India.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      title: 'NH222 Highway through Malshej Ghat Maharashtra India.jpg',
+      source: 'Wikimedia Commons',
+      creator: 'Aditya Patawari',
+      license: 'CC BY-SA 2.0',
+      originalUrl: 'https://commons.wikimedia.org/wiki/File:NH222_Highway_through_Malshej_Ghat_Maharashtra_India.jpg',
+      verified: true
+    }
+  ],
+  'sagareshwar wildlife sanctuary': [
+    {
+      url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/Blackbuck_Fight_in_Sagareshwar_Wildlife_Sanctuary%2C_India_%2840624643483%29.jpg/1280px-Blackbuck_Fight_in_Sagareshwar_Wildlife_Sanctuary%2C_India_%2840624643483%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      thumbnailUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/Blackbuck_Fight_in_Sagareshwar_Wildlife_Sanctuary%2C_India_%2840624643483%29.jpg/1280px-Blackbuck_Fight_in_Sagareshwar_Wildlife_Sanctuary%2C_India_%2840624643483%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      title: 'Blackbuck Fight in Sagareshwar Wildlife Sanctuary, India (40624643483).jpg',
+      source: 'Wikimedia Commons',
+      creator: 'Inside Indian Jungles',
+      license: 'Public domain',
+      originalUrl: 'https://commons.wikimedia.org/wiki/File:Blackbuck_Fight_in_Sagareshwar_Wildlife_Sanctuary,_India_(40624643483).jpg',
+      verified: true
+    },
+    {
+      url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/15/Audumbar_at_dawn.jpg/1280px-Audumbar_at_dawn.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      thumbnailUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/15/Audumbar_at_dawn.jpg/1280px-Audumbar_at_dawn.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      title: 'Audumbar at dawn.jpg',
+      source: 'Wikimedia Commons',
+      creator: 'Shivrajnlad',
+      license: 'CC BY-SA 4.0',
+      originalUrl: 'https://commons.wikimedia.org/wiki/File:Audumbar_at_dawn.jpg',
+      verified: true
+    },
+    {
+      url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Shreekshetra_Audumbar_Temple.jpg/1280px-Shreekshetra_Audumbar_Temple.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      thumbnailUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Shreekshetra_Audumbar_Temple.jpg/1280px-Shreekshetra_Audumbar_Temple.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      title: 'Shreekshetra Audumbar Temple.jpg',
+      source: 'Wikimedia Commons',
+      creator: 'Kautuk1',
+      license: 'CC BY-SA 4.0',
+      originalUrl: 'https://commons.wikimedia.org/wiki/File:Shreekshetra_Audumbar_Temple.jpg',
+      verified: true
+    }
+  ],
+  'sindkhed raja': [
+    {
+      url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/2/26/Anand_sagar_view.JPG/1280px-Anand_sagar_view.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      thumbnailUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/2/26/Anand_sagar_view.JPG/1280px-Anand_sagar_view.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      title: 'Anand sagar view.JPG',
+      source: 'Wikimedia Commons',
+      creator: 'Arvindkanojiya1',
+      license: 'CC BY-SA 3.0',
+      originalUrl: 'https://commons.wikimedia.org/wiki/File:Anand_sagar_view.JPG',
+      verified: true
+    },
+    {
+      url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0f/Shri_Gajanan_Maharaj_Smruti_Mandir.jpg/1280px-Shri_Gajanan_Maharaj_Smruti_Mandir.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      thumbnailUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0f/Shri_Gajanan_Maharaj_Smruti_Mandir.jpg/1280px-Shri_Gajanan_Maharaj_Smruti_Mandir.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      title: 'Shri Gajanan Maharaj Smruti Mandir.jpg',
+      source: 'Wikimedia Commons',
+      creator: 'Oleg Yunakov',
+      license: 'CC0',
+      originalUrl: 'https://commons.wikimedia.org/wiki/File:Shri_Gajanan_Maharaj_Smruti_Mandir.jpg',
+      verified: true
+    },
+    {
+      url: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c5/Jijabai_and_Shivaji_01.jpg/1280px-Jijabai_and_Shivaji_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      thumbnailUrl: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c5/Jijabai_and_Shivaji_01.jpg/1280px-Jijabai_and_Shivaji_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      title: 'Jijabai and Shivaji 01.jpg',
+      source: 'Wikimedia Commons',
+      creator: 'Pratishkhedekar',
+      license: 'CC BY-SA 4.0',
+      originalUrl: 'https://commons.wikimedia.org/wiki/File:Jijabai_and_Shivaji_01.jpg',
+      verified: true
+    }
   ]
 };
 
 CURATED_LANDMARK_OVERRIDES['kaas pathar'] = CURATED_LANDMARK_OVERRIDES['kaas plateau'];
 CURATED_LANDMARK_OVERRIDES['kas plateau'] = CURATED_LANDMARK_OVERRIDES['kaas plateau'];
 CURATED_LANDMARK_OVERRIDES['kas plateau reserved forest'] = CURATED_LANDMARK_OVERRIDES['kaas plateau'];
+
+CURATED_LANDMARK_OVERRIDES['bhira, raigad'] = CURATED_LANDMARK_OVERRIDES['devkund waterfall'];
+CURATED_LANDMARK_OVERRIDES['devkund'] = CURATED_LANDMARK_OVERRIDES['devkund waterfall'];
+
+CURATED_LANDMARK_OVERRIDES['velas'] = CURATED_LANDMARK_OVERRIDES['velas, ratnagiri'];
+CURATED_LANDMARK_OVERRIDES['velas & bankot konkan village'] = CURATED_LANDMARK_OVERRIDES['velas, ratnagiri'];
+CURATED_LANDMARK_OVERRIDES['bankot'] = CURATED_LANDMARK_OVERRIDES['velas, ratnagiri'];
+
+CURATED_LANDMARK_OVERRIDES['tamhini'] = CURATED_LANDMARK_OVERRIDES['tamhini ghat'];
+CURATED_LANDMARK_OVERRIDES['tamhini ghat & plus valley'] = CURATED_LANDMARK_OVERRIDES['tamhini ghat'];
+CURATED_LANDMARK_OVERRIDES['plus valley'] = CURATED_LANDMARK_OVERRIDES['tamhini ghat'];
+
+CURATED_LANDMARK_OVERRIDES['malshej'] = CURATED_LANDMARK_OVERRIDES['malshej ghat'];
+CURATED_LANDMARK_OVERRIDES['malshej ghat & pimpalgaon dam'] = CURATED_LANDMARK_OVERRIDES['malshej ghat'];
+CURATED_LANDMARK_OVERRIDES['pimpalgaon dam'] = CURATED_LANDMARK_OVERRIDES['malshej ghat'];
+
+CURATED_LANDMARK_OVERRIDES['sagareshwar'] = CURATED_LANDMARK_OVERRIDES['sagareshwar wildlife sanctuary'];
+CURATED_LANDMARK_OVERRIDES['sagareshwar wildlife sanctuary & audumbar'] = CURATED_LANDMARK_OVERRIDES['sagareshwar wildlife sanctuary'];
+CURATED_LANDMARK_OVERRIDES['audumbar'] = CURATED_LANDMARK_OVERRIDES['sagareshwar wildlife sanctuary'];
+
+CURATED_LANDMARK_OVERRIDES['shegaon'] = CURATED_LANDMARK_OVERRIDES['sindkhed raja'];
+CURATED_LANDMARK_OVERRIDES['sindkhed raja heritage & shegaon'] = CURATED_LANDMARK_OVERRIDES['sindkhed raja'];
 
 export async function fetchWikimediaImagesForTitle(wikiTitle: string, limit = 4): Promise<ImageAttribution[]> {
   if (!wikiTitle) return [];

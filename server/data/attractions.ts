@@ -648,7 +648,7 @@ export const MAHARASHTRA_ATTRACTIONS: Attraction[] = [
     tags: ['Hidden Gems', 'Hidden Waterfalls', 'Nature Trails', 'Trekking'],
     isHiddenGem: true,
     hiddenGemFilters: ['Hidden Waterfalls', 'Nature Trails', 'Photography Locations'],
-    wikiTitle: 'Bhira, Raigad',
+    wikiTitle: 'Devkund Waterfall',
     source: 'OSM',
     verificationStatus: 'VERIFIED'
   },
