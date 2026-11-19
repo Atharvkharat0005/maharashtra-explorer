@@ -46,9 +46,49 @@ function stripHtml(html: string | undefined): string {
   return html.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
 }
 
+const CURATED_LANDMARK_OVERRIDES: Record<string, ImageAttribution[]> = {
+  'lonar lake': [
+    {
+      url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Lonar_Crater%2C_Panorama.jpg/1280px-Lonar_Crater%2C_Panorama.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Lonar_Crater%2C_Panorama.jpg/1280px-Lonar_Crater%2C_Panorama.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      title: 'Lonar Crater, Panorama.jpg',
+      source: 'Wikimedia Commons',
+      creator: 'Aditya Laghate',
+      license: 'CC BY-SA 3.0',
+      originalUrl: 'https://commons.wikimedia.org/wiki/File:Lonar_Crater,_Panorama.jpg',
+      verified: true
+    },
+    {
+      url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Sunset_over_Lonar_Crater_Lake%2C_Maharashtra%2C_India.jpg/1280px-Sunset_over_Lonar_Crater_Lake%2C_Maharashtra%2C_India.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Sunset_over_Lonar_Crater_Lake%2C_Maharashtra%2C_India.jpg/1280px-Sunset_over_Lonar_Crater_Lake%2C_Maharashtra%2C_India.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      title: 'Sunset over Lonar Crater Lake, Maharashtra, India.jpg',
+      source: 'Wikimedia Commons',
+      creator: 'Rohit Sharma',
+      license: 'CC BY-SA 4.0',
+      originalUrl: 'https://commons.wikimedia.org/wiki/File:Sunset_over_Lonar_Crater_Lake,_Maharashtra,_India.jpg',
+      verified: true
+    },
+    {
+      url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Panoramic_view_of_Lonar_crater_lake_from_the_rim.jpg/1280px-Panoramic_view_of_Lonar_crater_lake_from_the_rim.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Panoramic_view_of_Lonar_crater_lake_from_the_rim.jpg/1280px-Panoramic_view_of_Lonar_crater_lake_from_the_rim.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail',
+      title: 'Panoramic view of Lonar crater lake from the rim.jpg',
+      source: 'Wikimedia Commons',
+      creator: 'Rudolph A. Furtado',
+      license: 'CC BY 4.0',
+      originalUrl: 'https://commons.wikimedia.org/wiki/File:Panoramic_view_of_Lonar_crater_lake_from_the_rim.jpg',
+      verified: true
+    }
+  ]
+};
+
 export async function fetchWikimediaImagesForTitle(wikiTitle: string, limit = 4): Promise<ImageAttribution[]> {
   if (!wikiTitle) return [];
-  const key = `${wikiTitle.toLowerCase()}::${limit}`;
+  const normalizedKey = wikiTitle.trim().toLowerCase();
+  if (CURATED_LANDMARK_OVERRIDES[normalizedKey]) {
+    return CURATED_LANDMARK_OVERRIDES[normalizedKey].slice(0, limit);
+  }
+
+  const key = `${normalizedKey}::${limit}`;
   const cached = memoryCache.get(key);
   if (cached && Date.now() - cached.fetchedAt < CACHE_TTL_MS && cached.images.length > 0) {
     return cached.images;
@@ -91,7 +131,7 @@ export async function fetchWikimediaImagesForTitle(wikiTitle: string, limit = 4)
       for (const img of page.images) {
         const title: string = img.title || '';
         const lower = title.toLowerCase();
-        // Exclude SVG icons, maps, flags, logos, commons-logo, edit icons
+        // Exclude SVG icons, maps, flags, logos, space/nebula objects
         if (
           (lower.endsWith('.jpg') || lower.endsWith('.jpeg') || lower.endsWith('.png') || lower.endsWith('.webp')) &&
           !lower.includes('flag') &&
@@ -102,6 +142,11 @@ export async function fetchWikimediaImagesForTitle(wikiTitle: string, limit = 4)
           !lower.includes('logo') &&
           !lower.includes('seal') &&
           !lower.includes('coat_of_arms') &&
+          !lower.includes('nebula') &&
+          !lower.includes('galaxy') &&
+          !lower.includes('supernova') &&
+          !lower.includes('telescope') &&
+          !lower.includes('hubble') &&
           !candidateFiles.includes(title)
         ) {
           candidateFiles.push(title);

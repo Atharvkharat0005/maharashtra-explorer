@@ -158,18 +158,8 @@
     "fetchedAt": 1794914899985,
     "images": [
       {
-        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/00/Crab_Nebula.jpg/1280px-Crab_Nebula.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/00/Crab_Nebula.jpg/1280px-Crab_Nebula.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-        "title": "Crab Nebula.jpg",
-        "source": "Wikimedia Commons",
-        "creator": "NASA, ESA, J. Hester and A. Loll (Arizona State University)",
-        "license": "Public domain",
-        "originalUrl": "https://commons.wikimedia.org/wiki/File:Crab_Nebula.jpg",
-        "verified": true
-      },
-      {
-        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/82/Lonar_Crater%2C_Panorama.jpg/1280px-Lonar_Crater%2C_Panorama.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
-        "thumbnailUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/82/Lonar_Crater%2C_Panorama.jpg/1280px-Lonar_Crater%2C_Panorama.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Lonar_Crater%2C_Panorama.jpg/1280px-Lonar_Crater%2C_Panorama.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Lonar_Crater%2C_Panorama.jpg/1280px-Lonar_Crater%2C_Panorama.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
         "title": "Lonar Crater, Panorama.jpg",
         "source": "Wikimedia Commons",
         "creator": "Aditya Laghate",
@@ -178,13 +168,23 @@
         "verified": true
       },
       {
-        "url": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Lonar_Crater_Lake_NASA.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
-        "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Lonar_Crater_Lake_NASA.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
-        "title": "Lonar Crater Lake NASA.png",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Sunset_over_Lonar_Crater_Lake%2C_Maharashtra%2C_India.jpg/1280px-Sunset_over_Lonar_Crater_Lake%2C_Maharashtra%2C_India.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Sunset_over_Lonar_Crater_Lake%2C_Maharashtra%2C_India.jpg/1280px-Sunset_over_Lonar_Crater_Lake%2C_Maharashtra%2C_India.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "title": "Sunset over Lonar Crater Lake, Maharashtra, India.jpg",
         "source": "Wikimedia Commons",
-        "creator": "NASA",
-        "license": "CC0",
-        "originalUrl": "https://commons.wikimedia.org/wiki/File:Lonar_Crater_Lake_NASA.png",
+        "creator": "Rohit Sharma",
+        "license": "CC BY-SA 4.0",
+        "originalUrl": "https://commons.wikimedia.org/wiki/File:Sunset_over_Lonar_Crater_Lake,_Maharashtra,_India.jpg",
+        "verified": true
+      },
+      {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Panoramic_view_of_Lonar_crater_lake_from_the_rim.jpg/1280px-Panoramic_view_of_Lonar_crater_lake_from_the_rim.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "thumbnailUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Panoramic_view_of_Lonar_crater_lake_from_the_rim.jpg/1280px-Panoramic_view_of_Lonar_crater_lake_from_the_rim.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "title": "Panoramic view of Lonar crater lake from the rim.jpg",
+        "source": "Wikimedia Commons",
+        "creator": "Rudolph A. Furtado",
+        "license": "CC BY 4.0",
+        "originalUrl": "https://commons.wikimedia.org/wiki/File:Panoramic_view_of_Lonar_crater_lake_from_the_rim.jpg",
         "verified": true
       }
     ]
